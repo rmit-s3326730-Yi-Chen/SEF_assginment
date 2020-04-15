@@ -1,24 +1,25 @@
+package assign;
 import java.util.*;
-public class Student extends User{
-	private StudentType type;
+public class Applicant extends User{
+	private Type type;
 	private static ArrayList<Complaint> complaints = new ArrayList<Complaint>();
-	private ArrayList<Offer> offers = new ArrayList<Offer>();
+	private ArrayList<JobOffer> offers = new ArrayList<>();
 	private ArrayList<Interview> interviews = new ArrayList<Interview>();
 	
 
-	public Student(String username, String password) {
+	public Applicant(String username, String password) {
 		super(username, password);
 		// TODO Auto-generated constructor stub
 		
 	}
 	public boolean setType(int typeChecker) {
 		if(typeChecker ==0) {
-			this.type=StudentType.Local;
+			this.type=Type.Local;
 			System.out.println("Success! Set to local student");
 			return true;
 		}
 		else if(typeChecker ==1) {
-			this.type =StudentType.International;
+			this.type =Type.International;
 			System.out.println("Success! Set to international student");
 			return true;
 		}
@@ -27,7 +28,7 @@ public class Student extends User{
 			return false;
 		}
 	}
-	public StudentType getType() {
+	public Type getType() {
 		return this.type;
 	}
 	
