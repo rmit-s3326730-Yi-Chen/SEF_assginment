@@ -5,7 +5,7 @@ public class Applicant extends User{
 	private static ArrayList<Complaint> complaints = new ArrayList<Complaint>();
 	private ArrayList<JobOffer> offers = new ArrayList<>();
 	private ArrayList<Interview> interviews = new ArrayList<Interview>();
-	
+
 
 	public Applicant(String username, String password) {
 		super(username, password);
@@ -42,5 +42,5 @@ public class Applicant extends User{
 	public boolean handleOffer() {
 		return false;
 	}
-
+	
 }
