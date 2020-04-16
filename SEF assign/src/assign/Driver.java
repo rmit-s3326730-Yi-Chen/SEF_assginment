@@ -19,7 +19,9 @@ public class Driver {
 		do {
 			System.out.println("**Student Casual Employment System**");
 	       	System.out.println("1. Log in");
-	       	System.out.println("2. Quit");
+	       	System.out.println("2. Register as applicant");
+	       	System.out.println("3. Register as employer");
+	       	System.out.println("4. Quit");
 	    	System.out.println("Please Enter Your Choice:");
 	    	try {
 	    		resp = scan.nextInt();
@@ -56,8 +58,30 @@ public class Driver {
 	    			System.out.println("Wrong password");
 	    		}
 	    	}
+	    	if(resp ==2) {
+	    		System.out.println("Please enter username");
+	    		String username = scan.next();
+	    		scan.nextLine();
+	    		System.out.println("Please enter password");
+	    		String password = scan.next();
+	    		aUser = new Applicant (username,password);
+	    		scan.nextLine();
+	    		users.add(aUser);
+	    		System.out.println("You have registered as applicant, "+username);
+	    	}
+	    	if(resp ==3) {
+	    		System.out.println("Please enter username");
+	    		String username = scan.next();
+	    		scan.nextLine();
+	    		System.out.println("Please enter password");
+	    		String password = scan.next();
+	    		aUser = new Employer (username,password);
+	    		scan.nextLine();
+	    		users.add(aUser);
+	    		System.out.println("You have registered as employer, "+username);
+	    	}
 	    	
-	    	if(resp == 2) {
+	    	if(resp == 4) {
 	    		System.out.println("Thank your for using Student Casual Employment System");
 	    	}
 	    	
@@ -104,10 +128,11 @@ public class Driver {
 		    	
 		    	if(resp ==9) {
 		    		login =false;
+		    		break;
 		    	}
 	    	}
 			
-		}while(resp!=2);
+		}while(resp!=4);
 		
 		
 	}
