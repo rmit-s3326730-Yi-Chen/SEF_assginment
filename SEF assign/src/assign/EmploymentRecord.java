@@ -1,18 +1,22 @@
 package assign;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class EmploymentRecord {
+    private static List<String> pastJob = new ArrayList<>(
+            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
+    );
+	public static List<String> getPastJob() {
+		return pastJob;
+	}
 	private String companyName;
 	private String jobName;
 	private String jobResponsibility;
-	private String start_endTime;
-	
-	//update employment records
-	public EmploymentRecord(String companyName, String jobName, String jobResponsibility, String start_endTime){
-		this.companyName = companyName;
-		this.jobName = jobName;
-		this.jobResponsibility = jobResponsibility;
-		this.start_endTime= start_endTime;
-	}
+	  private LocalDate beginDate;
+	  private LocalDate endDate;
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -31,17 +35,23 @@ public class EmploymentRecord {
 	public void setJobResponsibility(String jobResponsibility) {
 		this.jobResponsibility = jobResponsibility;
 	}
-	public String getStart_endTime() {
-		return start_endTime;
+	public LocalDate getBeginDate() {
+		return beginDate;
 	}
-	public void setStart_endTime(String start_endTime) {
-		this.start_endTime = start_endTime;
+	public void setBeginDate(LocalDate beginDate) {
+		this.beginDate = beginDate;
+	}
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 	@Override
 	public String toString() {
-		String er =  "companyName=" + companyName + ", jobName=" + jobName + ", jobResponsibility="
-				+ jobResponsibility + ", start_endTime=" + start_endTime ;
-	
-	return er;
+		return "companyName=" + companyName + ", jobName=" + jobName + ", jobResponsibility="
+				+ jobResponsibility + ", beginDate=" + beginDate + ", endDate=" + endDate ;
 	}
+	
+
 }

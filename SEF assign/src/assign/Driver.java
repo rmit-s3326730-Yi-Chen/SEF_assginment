@@ -68,6 +68,7 @@ public class Driver {
 	    		scan.nextLine();
 	    		users.add(aUser);
 	    		System.out.println("You have registered as applicant, "+username);
+
 	    	}
 	    	if(resp ==3) {
 	    		System.out.println("Please enter username");
@@ -94,6 +95,7 @@ public class Driver {
 					System.out.println("3. View offer");
 					System.out.println("4. Upload CV");
 					System.out.println("5. Change Details");
+					System.out.println("6. Update job References"+ JobReference.getJobPreferences());
 					System.out.println("9. Log out");
 			    	System.out.println("Please Enter Your Choice:");
 				}
