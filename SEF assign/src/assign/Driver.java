@@ -9,9 +9,11 @@ public class Driver {
 		int resp=0; // user integer response
 		String resp2=null; //user String response
 		ArrayList<User> users = new ArrayList<>();
-		User aUser = new Applicant("s1","1");
+		User aUser = new Applicant("a1","1");
 		users.add(aUser);
-		aUser = new Applicant("s2","2");
+		aUser = new Employer("e1","1");
+		users.add(aUser);
+		aUser = new Staff("s1","1");
 		users.add(aUser);
 		
 		do {
@@ -56,14 +58,40 @@ public class Driver {
 	    	}
 	    	
 	    	if(resp == 2) {
-	    		System.out.println("Thank your for using the system");
+	    		System.out.println("Thank your for using Student Casual Employment System");
 	    	}
 	    	
 	    	while(login) {
-	    		System.out.println("Welcome " +cUser.getUsername());
-				System.out.println("**User Menu**");
-		       	System.out.println("9. Log out");
-		    	System.out.println("Please Enter Your Choice:");
+				if(cUser instanceof Applicant) {
+					System.out.println("Welcome " +cUser.getUsername());
+					System.out.println("**Applicant Menu**");
+					System.out.println("1. Update job history");
+					System.out.println("2. View interview");
+					System.out.println("3. View offer");
+					System.out.println("4. Upload CV");
+					System.out.println("5. Change Details");
+					System.out.println("9. Log out");
+			    	System.out.println("Please Enter Your Choice:");
+				}
+				if(cUser instanceof Employer) {
+					System.out.println("Welcome " +cUser.getUsername());
+					System.out.println("**Employer Menu**");
+					System.out.println("1. View applicant");
+					System.out.println("2. Create interview");
+					System.out.println("3. Create offer");
+					System.out.println("9. Log out");
+			    	System.out.println("Please Enter Your Choice:");
+					
+				}
+				if(cUser instanceof Staff) {
+					System.out.println("Welcome " +cUser.getUsername());
+					System.out.println("**Staff Menu**");
+					System.out.println("1. View blacklist");
+					System.out.println("9. Log out");
+			    	System.out.println("Please Enter Your Choice:");
+					
+				}
+		       	
 		    	try {
 		    		resp = scan.nextInt();
 		    		
