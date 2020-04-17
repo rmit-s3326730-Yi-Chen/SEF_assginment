@@ -54,15 +54,38 @@ public class Employer extends User {
 	}
 
 	private static void searchApplicant() {
-		String s1 = auser.getType;
+		
 		String s2 = offer.getType;
-		if(s1.equalsto(s2))
+		for (int i = 0; i < users.size(); ++i) {
+			User user = users.get(i);
+			String s1 = auser.getType;
+			if(s1.equalsto(s2))
 			System.out.println(auser.getUsername);
+		else
+			System.out.println("No students found for the offer");
+		}
+
 	}
 
 	private static void createOffer() {
+		String title, description;
+		double wage;
+		int settype;
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the details of the job");
+		System.out.println("Title: ");
+			title = input.nextLine();
+		System.out.println("Description: ");
+			description = input.nextLine();
+		System.out.println("Wage per hour: ");
+			wage = input.nextDouble();
+		System.out.println("Applicant type required for the offer: ");
+		settype=input.nextint();
+		JobOffer offer = new JobOffer(title, description, wage, offertype);
+		JobOffer.add(job);
 		
 	}
+	
 	
 	private static void complaint() {
 	
