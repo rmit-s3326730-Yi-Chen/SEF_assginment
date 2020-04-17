@@ -3,6 +3,8 @@ package assign;
 import java.util.*;
 
 public class Employer extends User {
+	
+	private ArrayList<JobOffer> offers = new ArrayList<>();
 
 	public Employer(String username, String password) {
 		super(username, password);
@@ -55,7 +57,7 @@ public class Employer extends User {
 
 	private static void searchApplicant() {
 		
-		String s2 = offer.getType;
+		String s2 = offer.getOfferType;
 		for (int i = 0; i < users.size(); ++i) {
 			User user = users.get(i);
 			String s1 = auser.getType;
@@ -81,9 +83,9 @@ public class Employer extends User {
 			wage = input.nextDouble();
 		System.out.println("Applicant type required for the offer: ");
 		settype=input.nextint();
+		Type offertype = setOfferType(settype);
 		JobOffer offer = new JobOffer(title, description, wage, offertype);
-		JobOffer.add(job);
-		
+		JobOffer.add(offer);	
 	}
 	
 	
