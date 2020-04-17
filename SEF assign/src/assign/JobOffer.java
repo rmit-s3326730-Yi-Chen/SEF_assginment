@@ -2,11 +2,7 @@ package assign;
 
 public class JobOffer {
   private Type OfferType;
-  
-	public Type getOfferType() {
-		return this.OfferType;
-	}
-	
+
 	private String Title;
 	private String Description;
 	
