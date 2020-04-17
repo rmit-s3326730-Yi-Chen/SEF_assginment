@@ -3,21 +3,25 @@ package assign;
 import java.util.*;
 
 public class Employer extends User {
-	
-	private ArrayList<JobOffer> offers = new ArrayList<>();
 
 	public Employer(String username, String password) {
 		super(username, password);
 		// TODO Auto-generated constructor stub
 	}
 	
+	private ArrayList<JobOffer> offers = new ArrayList<>();
+
+	Scanner input = new Scanner(System.in);
 	int choice;
-		Scanner input = new Scanner(System.in);
+
+	public void DisplayMenu() {
+		int choice;
 		try {
 			do {
 				System.out.println("Welcome to Employer System");
 				System.out.println("** Employer Menu **\n" + "1. Create Offer\n" + "2. Search and View Applicants\n"
-						+ "3. Set Interview Time\n" + "4. Update Interview Outcome\n" + "5. Complaint\n" + "6. Log Out\n");
+						+ "3. Set Interview Time\n" + "4. Update Interview Outcome\n" + "5. Complaint\n"
+						+ "6. Log Out\n");
 				System.out.print("Enter your choice\n");
 				choice = input.nextInt();
 				switch (choice) {
@@ -47,50 +51,50 @@ public class Employer extends User {
 		} catch (InputMismatchException e) {
 			System.out.println("Please enter an integer value");
 		}
-	private static void interviewOutcome() {
 
 	}
 
-	private static void setInterview() {
+	private void complaint() {
 
 	}
 
-	private static void searchApplicant() {
+	private void interviewOutcome() {
+
+	}
+
+	private void setInterview() {
+
+	}
+
+	private void searchApplicant() {
+		for (int i = 0; i < offers.size(); ++i) {
+			JobOffer offer = offers.get(i);
+			Type s1 = offer.getOfferType();
+		}//in progress search by type
 		
-		String s2 = offer.getOfferType;
-		for (int i = 0; i < users.size(); ++i) {
-			User user = users.get(i);
-			String s1 = auser.getType;
-			if(s1.equalsto(s2))
-			System.out.println(auser.getUsername);
-		else
-			System.out.println("No students found for the offer");
-		}
+		for (int i = 0; i < offers.size(); ++i) {
+			JobOffer offer = offers.get(i);
+			Status s2 = offer.getStatus();
+		}//in progress search by status when offer is available
 
 	}
 
-	private static void createOffer() {
+	private void createOffer() {
 		String title, description;
 		double wage;
-		int settype;
+		Type offertype;
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter the details of the job");
 		System.out.println("Title: ");
-			title = input.nextLine();
+		title = input.nextLine();
 		System.out.println("Description: ");
-			description = input.nextLine();
+		description = input.nextLine();
 		System.out.println("Wage per hour: ");
-			wage = input.nextDouble();
+		wage = input.nextDouble();
 		System.out.println("Applicant type required for the offer: ");
-		settype=input.nextint();
-		Type offertype = setOfferType(settype);
+		offertype = Type.valueOf(input.nextLine());
 		JobOffer offer = new JobOffer(title, description, wage, offertype);
-		JobOffer.add(offer);	
-	}
-	
-	
-	private static void complaint() {
-	
-	}
+		offers.add(offer);
 
+	}
 }
