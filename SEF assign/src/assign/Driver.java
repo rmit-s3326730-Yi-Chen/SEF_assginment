@@ -13,7 +13,7 @@ public class Driver {
 		users.add(aUser);
 		aUser = new Employer("e1","1");
 		users.add(aUser);
-		aUser = new Staff("s1","1");
+		aUser = new SystemStaff("s1","1");
 		users.add(aUser);
 		
 		do {
@@ -109,7 +109,7 @@ public class Driver {
 			    	System.out.println("Please Enter Your Choice:");
 					
 				}
-				if(cUser instanceof Staff) {
+				if(cUser instanceof SystemStaff) {
 					System.out.println("Welcome " +cUser.getUsername());
 					System.out.println("**Staff Menu**");
 					System.out.println("1. View blacklist");

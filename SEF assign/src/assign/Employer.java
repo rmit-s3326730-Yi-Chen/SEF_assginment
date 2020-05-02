@@ -2,7 +2,7 @@ package assign;
 
 import java.util.*;
 
-public class Employer extends User {
+public class Employer extends SystemUser {
 
 	public Employer(String username, String password) {
 		super(username, password);

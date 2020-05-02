@@ -1,6 +1,6 @@
 package assign;
 import java.util.*;
-public class Applicant extends User{
+public class Applicant extends SystemUser{
 	private Type type;
 	private static ArrayList<Complaint> complaints = new ArrayList<Complaint>();
 	private ArrayList<JobOffer> offers = new ArrayList<>();
