@@ -2,6 +2,7 @@ package assign;
 public abstract class User {
 	private String username;
 	private String password;
+	public String nickName;
 	
 	public User(String username, String password) {
 		this.username = username;

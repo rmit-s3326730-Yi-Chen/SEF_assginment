@@ -14,20 +14,21 @@ public class Employer extends SystemUser {
 	Scanner input = new Scanner(System.in);
 	int choice;
 
-	public void DisplayMenu() {
+	public void employerMenu() {
 		int choice;
 		try {
 			do {
 				System.out.println("Welcome to Employer System");
-				System.out.println("** Employer Menu **\n" + "1. Create Offer\n" + "2. Search and View Applicants\n"
-						+ "3. Set Interview Time\n" + "4. Update Interview Outcome\n" + "5. Complaint\n"
-						+ "6. Log Out\n");
-				System.out.print("Enter your choice\n");
+				System.out.println("** Employer Menu **\n" 
+													   + "1. Create Offer\n"
+													   + "2. Search and View Applicants\n"
+													   + "3. Create Interview\n" 
+													   + "4. Update Interview Outcome\n" 
+													   + "5. Complaint\n"
+													   + "6. Log Out\n");
+				System.out.print("Please Enter your choice:\n");
 				choice = input.nextInt();
 				switch (choice) {
-				case 6:
-					System.out.println("Thank You! You have logged out of the system");
-					break;
 				case 1:
 					createOffer();
 					break;
@@ -43,13 +44,15 @@ public class Employer extends SystemUser {
 				case 5:
 					complaint();
 					break;
+				case 6:
+					System.exit(6);
 				default:
 					System.out.println("Invalid option please try again and choose between 1 to 6");
 					break;
 				}
 			} while (!(choice <= 6));
 		} catch (InputMismatchException e) {
-			System.out.println("Please enter an integer value");
+			System.out.println("Please enter an integer value:");
 		}
 
 	}
@@ -97,4 +100,5 @@ public class Employer extends SystemUser {
 		offers.add(offer);
 
 	}
+	
 }

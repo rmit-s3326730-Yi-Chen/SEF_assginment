@@ -2,7 +2,7 @@ package assign;
 import java.util.*;
 public class Driver {
 
-	public static void main(String[] args) throws InvalidJobCategoryException, JobCategoryNotFoundException {
+	public static void main(String[] args)  {
 		Scanner scan = new Scanner(System.in);
 		User cUser = null;// current user;
 		boolean login = false;// determine login/logout
@@ -15,6 +15,10 @@ public class Driver {
 		users.add(aUser);
 		aUser = new SystemStaff("s1","1");
 		users.add(aUser);
+		ArrayList<Complaint>complaints = new ArrayList<>();
+		Applicant applicant = new Applicant("","");
+		Employer employer = new Employer("","");
+		SystemStaff systemStaff = new SystemStaff("","");
 	try {
 			
 		do {
@@ -43,7 +47,7 @@ public class Driver {
 	    			System.out.println("No such username.");
 	    			continue;
 	    		}
-	    		System.out.println("Please enter password");
+	    		System.out.println("Please enter password:");
 	    		resp2 = scan.next();
 	    		scan.nextLine();
 	    		if(resp2.equals(cUser.getPassword())) {
@@ -54,10 +58,10 @@ public class Driver {
 	    		}
 	    	}
 	    	if(resp ==2) {
-	    		System.out.println("Please enter username");
+	    		System.out.println("Please enter username:");
 	    		String username = scan.next();
 	    		scan.nextLine();
-	    		System.out.println("Please enter password");
+	    		System.out.println("Please enter password:");
 	    		String password = scan.next();
 	    		aUser = new Applicant (username,password);
 	    		scan.nextLine();
@@ -66,10 +70,10 @@ public class Driver {
 
 	    	}
 	    	if(resp ==3) {
-	    		System.out.println("Please enter username");
+	    		System.out.println("Please enter username:");
 	    		String username = scan.next();
 	    		scan.nextLine();
-	    		System.out.println("Please enter password");
+	    		System.out.println("Please enter password:");
 	    		String password = scan.next();
 	    		aUser = new Employer (username,password);
 	    		scan.nextLine();
@@ -83,57 +87,14 @@ public class Driver {
 	    	
 	    	while(login) {
 				if(cUser instanceof Applicant) {
-					System.out.println("Welcome " +cUser.getUsername());
-					System.out.println("**Applicant Menu**");
-					System.out.println("1. Update job history");
-					System.out.println("2. View interview");
-					System.out.println("3. View offer");
-					System.out.println("4. Upload CV");
-					System.out.println("5. Change Details");
-					System.out.println("6. Update job References");
-					System.out.println("9. Log out");
-			    	System.out.println("Please Enter Your Choice:");
-			    	int response = scan.nextInt();
-			    	switch (response) {
-			    	case(1):
-			    		// update job history
-			    		break;
-			    	case(2):
-			    		//View interview
-			    		break;
-			    	case(3):
-			    		//view offer
-			    		break;
-			    	case(4):
-			    		//Upload CV
-			    		break;
-			    	case(5):
-			    		//Change Details
-			    		break;
-                    case (6):
-//                        ApplicantMenu.updateJobPreferences();
-                        break;
-                    case (0):
-                        login = false;
-                        break;
-                }
+					applicant.applicantMenu();
 				}
 				if(cUser instanceof Employer) {
-					System.out.println("Welcome " +cUser.getUsername());
-					System.out.println("**Employer Menu**");
-					System.out.println("1. View applicant");
-					System.out.println("2. Create interview");
-					System.out.println("3. Create offer");
-					System.out.println("9. Log out");
-			    	System.out.println("Please Enter Your Choice:");
+					employer.employerMenu();
 					
 				}
 				if(cUser instanceof SystemStaff) {
-					System.out.println("Welcome " +cUser.getUsername());
-					System.out.println("**Staff Menu**");
-					System.out.println("1. View blacklist");
-					System.out.println("9. Log out");
-			    	System.out.println("Please Enter Your Choice:");
+					systemStaff.staffMenu();
 					
 				}
 		       	
@@ -142,7 +103,7 @@ public class Driver {
 		    		
 		    	}
 		    	catch(Exception e) {
-		    		System.out.println("Invaild Input! Please enter number");
+		    		System.out.println("Invaild Input! Please enter number:");
 		    	}
 		    	scan.nextLine();
 		    	
@@ -155,8 +116,10 @@ public class Driver {
 			
 		}while(resp!=4);
 	}catch(Exception e) {
-		System.out.println("Invaild Input! Please enter number");
 		scan.nextLine();
+		System.out.println("Invaild Input! System has automatically exited, you can restart to log in again");
+		
+		
 	}
 		
 		
