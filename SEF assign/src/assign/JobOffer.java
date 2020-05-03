@@ -1,12 +1,15 @@
 package assign;
 
+import java.util.ArrayList;
+
 public class JobOffer {
 	private Type OfferType;
 	private String Title;
 	private String Description;
 	private double Wage;
 	private Status Status;
-
+	private ArrayList<JobOffer> offers = new ArrayList<>();
+	
 	public JobOffer(String Title, String Description, Double Wage, Type OfferType) {
 		this.Title = Title;
 		this.Description = Description;

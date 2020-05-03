@@ -2,18 +2,11 @@ package assign;
 import java.util.*;
 public class Applicant extends SystemUser{
 	private Type type;
-	private ArrayList<Complaint> complaints = new ArrayList<Complaint>();
-	private ArrayList<JobOffer> offers = new ArrayList<>();
-	private ArrayList<Interview> interviews = new ArrayList<Interview>();
 	Scanner scan = new Scanner(System.in);
 	boolean login = false;
 	private String applicantEmail;
-	private  List<String> jobCategories = new ArrayList<>(
-            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
-    );
-	public List<String> getJobCategories(Scanner sc) {
-		return jobCategories;
-	}
+	private Status status;
+
 	  private List<String> jobPreferences = new ArrayList<>();
 	  
 	public List<String> getJobPreferences(Scanner sc) {
@@ -69,7 +62,7 @@ public class Applicant extends SystemUser{
 		System.out.println("3. View offer"); //view offer and can make a choice to accept or reject offer, or just view and do not handle it 
 		System.out.println("4. Upload CV");
 		System.out.println("5. Update Details");//availability + type +email
-		System.out.println("6. Update Job References");
+		System.out.println("6. Update Job Preferences");
 		System.out.println("7. Complaint");
 		System.out.println("8. Log out");
     	System.out.println("Please Enter Your Choice:");
@@ -115,7 +108,7 @@ public class Applicant extends SystemUser{
 	            scan.nextLine();
 	            switch (response) {
 	                case (1):
-	                   addJobPreference();
+	                   addJobPreference(jobPreference);
 	                    break;
 	                case (2):
 	                    //removeJobPreference();
@@ -133,7 +126,7 @@ public class Applicant extends SystemUser{
 	    }
 	}
 	
-	public void addJobPreference(){
+	public void addJobPreference(String jobPreference){
 		User cUser;
 		System.out.println("Please type your Job Peference");
 	    for (String jc : cUser.getJobCategories(sc)) {

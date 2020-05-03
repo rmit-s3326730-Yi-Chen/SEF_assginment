@@ -1,5 +1,7 @@
 package assign;
 
-public class Interview {
+import java.util.ArrayList;
 
+public class Interview {
+	private ArrayList<Interview> interviews = new ArrayList<Interview>();
 }
