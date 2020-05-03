@@ -16,7 +16,7 @@ public class Driver {
 		aUser = new SystemStaff("s1","1");
 		users.add(aUser);
 	try {
-			resp = scan.nextInt();
+			
 		do {
 			System.out.println("**Student Casual Employment System**");
 	       	System.out.println("1. Log in");
@@ -25,7 +25,7 @@ public class Driver {
 	       	System.out.println("4. Quit");
 	    	System.out.println("Please Enter Your Choice:");
 
-
+	    	resp = scan.nextInt();
 	    	
 	    	if(resp ==1) {//login
 	    		System.out.println("Please enter your username:");
@@ -95,6 +95,21 @@ public class Driver {
 			    	System.out.println("Please Enter Your Choice:");
 			    	int response = scan.nextInt();
 			    	switch (response) {
+			    	case(1):
+			    		// update job history
+			    		break;
+			    	case(2):
+			    		//View interview
+			    		break;
+			    	case(3):
+			    		//view offer
+			    		break;
+			    	case(4):
+			    		//Upload CV
+			    		break;
+			    	case(5):
+			    		//Change Details
+			    		break;
                     case (6):
 //                        ApplicantMenu.updateJobPreferences();
                         break;
