@@ -3,20 +3,23 @@ package assign;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class JobReference {
-    private static List<String> jobCategories = new ArrayList<>(
+    private  List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
-	public static List<String> getJobCategories() {
+	public List<String> getJobCategories(Scanner sc) {
 		return jobCategories;
 	}
-	  private static List<String> jobPreferences = new ArrayList<>();
+	  private List<String> jobPreferences = new ArrayList<>();
 	  
-	public static List<String> getJobPreferences() {
+	public List<String> getJobPreferences(Scanner sc) {
 		return jobPreferences;
 	}
+	
 
+	
 	private String jobReferenceName;
 	// update job references
 	public JobReference(String jobReferenceName) {

@@ -2,7 +2,7 @@ package assign;
 import java.util.*;
 public class Driver {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidJobCategoryException, JobCategoryNotFoundException {
 		Scanner scan = new Scanner(System.in);
 		User cUser = null;// current user;
 		boolean login = false;// determine login/logout
@@ -15,7 +15,8 @@ public class Driver {
 		users.add(aUser);
 		aUser = new Staff("s1","1");
 		users.add(aUser);
-		
+	try {
+			resp = scan.nextInt();
 		do {
 			System.out.println("**Student Casual Employment System**");
 	       	System.out.println("1. Log in");
@@ -23,14 +24,8 @@ public class Driver {
 	       	System.out.println("3. Register as employer");
 	       	System.out.println("4. Quit");
 	    	System.out.println("Please Enter Your Choice:");
-	    	try {
-	    		resp = scan.nextInt();
-	    		
-	    	}
-	    	catch(Exception e) {
-	    		System.out.println("Invaild Input! Please enter number");
-	    	}
-	    	scan.nextLine();
+
+
 	    	
 	    	if(resp ==1) {//login
 	    		System.out.println("Please enter your username:");
@@ -95,9 +90,18 @@ public class Driver {
 					System.out.println("3. View offer");
 					System.out.println("4. Upload CV");
 					System.out.println("5. Change Details");
-					System.out.println("6. Update job References"+ JobReference.getJobPreferences());
+					System.out.println("6. Update job References");
 					System.out.println("9. Log out");
 			    	System.out.println("Please Enter Your Choice:");
+			    	int response = scan.nextInt();
+			    	switch (response) {
+                    case (6):
+//                        ApplicantMenu.updateJobPreferences();
+                        break;
+                    case (0):
+                        login = false;
+                        break;
+                }
 				}
 				if(cUser instanceof Employer) {
 					System.out.println("Welcome " +cUser.getUsername());
@@ -135,6 +139,10 @@ public class Driver {
 	    	}
 			
 		}while(resp!=4);
+	}catch(Exception e) {
+		System.out.println("Invaild Input! Please enter number");
+		scan.nextLine();
+	}
 		
 		
 	}

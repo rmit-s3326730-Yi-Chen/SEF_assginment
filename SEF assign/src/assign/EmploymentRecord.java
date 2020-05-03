@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EmploymentRecord {
-    private static List<String> pastJob = new ArrayList<>(
+    private List<String> pastJob = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
-	public static List<String> getPastJob() {
+	public List<String> getPastJob() {
 		return pastJob;
 	}
 	private String companyName;
