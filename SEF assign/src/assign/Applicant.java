@@ -5,7 +5,7 @@ import assign.JobCategory;
 public class Applicant extends SystemUser{
 	private Type type;
 	Scanner scan = new Scanner(System.in);
-	boolean login = false;
+
 	private String applicantEmail;
 	private Status status;
 	private String companyName;
@@ -107,7 +107,7 @@ public class Applicant extends SystemUser{
         	//Complaint
         	break;
         case (8):
-            login = false;
+        	System.exit(8);
             break;
     						}
 	}
