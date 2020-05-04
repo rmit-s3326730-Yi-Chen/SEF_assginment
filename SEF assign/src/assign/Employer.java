@@ -102,49 +102,6 @@ public class Employer extends SystemUser {
 
 	}
 	
-	//employment record
-	private List<String> pastJob = new ArrayList<>(
-            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
-    );
-	public List<String> getPastJob() {
-		return pastJob;
-	}
-	private String companyName;
-	private String jobName;
-	private String jobResponsibility;
-	  private LocalDate beginDate;
-	  private LocalDate endDate;
-	public String getCompanyName() {
-		return companyName;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	public String getJobName() {
-		return jobName;
-	}
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
-	}
-	public String getJobResponsibility() {
-		return jobResponsibility;
-	}
-	public void setJobResponsibility(String jobResponsibility) {
-		this.jobResponsibility = jobResponsibility;
-	}
-	public LocalDate getBeginDate() {
-		return beginDate;
-	}
-	public void setBeginDate(LocalDate beginDate) {
-		this.beginDate = beginDate;
-	}
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
 	
-	//***
 	
 }

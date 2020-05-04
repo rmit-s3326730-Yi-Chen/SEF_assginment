@@ -1,15 +1,31 @@
 package assign;
+import java.time.LocalDate;
 import java.util.*;
+import assign.JobCategory;
 public class Applicant extends SystemUser{
 	private Type type;
 	Scanner scan = new Scanner(System.in);
 	boolean login = false;
 	private String applicantEmail;
 	private Status status;
+	private String companyName;
+	private String jobName;
+	private String jobResponsibility;
+	private LocalDate beginDate;
+	private LocalDate endDate;
+	private List<String> jobCategories = new ArrayList<>(
+            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
+    );
+	User cUser; //current user
 
-	  private List<String> jobPreferences = new ArrayList<>();
+	  public Applicant(String username, String password) {
+		super(username, password);
+		// TODO Auto-generated constructor stub
+	}
+
+	private List<String> jobPreferences = new ArrayList<>();
 	  
-	public List<String> getJobPreferences(Scanner sc) {
+	public List<String> getJobPreferences() {
 		return jobPreferences;
 	}
 
@@ -69,7 +85,8 @@ public class Applicant extends SystemUser{
     	int response = scan.nextInt();
     	switch (response) {
     	case(1):
-    		// update job history
+    		// update employment records
+    		
     		break;
     	case(2):
     		//View interview
@@ -108,13 +125,13 @@ public class Applicant extends SystemUser{
 	            scan.nextLine();
 	            switch (response) {
 	                case (1):
-	                   addJobPreference(jobPreference);
+	                   addJobPreference();
 	                    break;
 	                case (2):
-	                    //removeJobPreference();
+	                  removeJobPreference();
 	                    break;
 	                case (3):
-	                   // viewPreferences();
+	                   viewPreferences();
 	                    break;
 	                case (0):
 	                    goBack = true;
@@ -126,15 +143,93 @@ public class Applicant extends SystemUser{
 	    }
 	}
 	
-	public void addJobPreference(String jobPreference){
-		User cUser;
-		System.out.println("Please type your Job Peference");
-	    for (String jc : cUser.getJobCategories(sc)) {
+	private void addJobPreference(){
+		System.out.println("Please type one of these job preferences to add to your selected preferences\n");
+	    for (String jc :  getJobCategories()) {
 	        System.out.println(jc);
-	        String sc=jc;
 	    }
 	    String response = scan.nextLine();
 
+	    if (getJobCategories().contains(response)) {
+	        this.jobPreferences.add(response);
+	      } else {
+	        System.out.println("Wrong input");
+	        
+	      }
 	}
+	private void removeJobPreference() {
+	    System.out.println("Please type one of your job preferences you want to remove \n");
+	    for (String jp : getJobPreferences()) {
+	        System.out.println(jp);
+	    }
+	    String response = scan.nextLine();
+
+	    if (getJobPreferences().contains(response)) {
+	        this.jobPreferences.remove(response);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+	}
+	private void viewPreferences() {
+		System.out.println("Your job preferences are now..");
+        for (String jp : getJobPreferences()) {
+            System.out.println(jp);
+        }
+	}
+	
+	//employment record
+//		private List<String> pastJob = new ArrayList<>(
+//	            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
+//	    );
+//		public List<String> getPastJob() {
+//			return pastJob;
+//		}
+		
+		public void setJobPreferences(List<String> jobPreferences) {
+		this.jobPreferences = jobPreferences;
+	}
+
+		public List<String> getJobCategories() {
+		return jobCategories;
+	}
+
+	public void setJobCategories(List<String> jobCategories) {
+		this.jobCategories = jobCategories;
+	}
+	public void addJobCategory(String jobCategory) {
+        jobCategories.add(jobCategory.toUpperCase());
+    }
+		public String getCompanyName() {
+			return companyName;
+		}
+		public void setCompanyName(String companyName) {
+			this.companyName = companyName;
+		}
+		public String getJobName() {
+			return jobName;
+		}
+		public void setJobName(String jobName) {
+			this.jobName = jobName;
+		}
+		public String getJobResponsibility() {
+			return jobResponsibility;
+		}
+		public void setJobResponsibility(String jobResponsibility) {
+			this.jobResponsibility = jobResponsibility;
+		}
+		public LocalDate getBeginDate() {
+			return beginDate;
+		}
+		public void setBeginDate(LocalDate beginDate) {
+			this.beginDate = beginDate;
+		}
+		public LocalDate getEndDate() {
+			return endDate;
+		}
+		public void setEndDate(LocalDate endDate) {
+			this.endDate = endDate;
+		}
+		
+		
 	
 }

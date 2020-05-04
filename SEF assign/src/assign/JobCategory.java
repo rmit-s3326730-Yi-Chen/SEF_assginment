@@ -8,12 +8,15 @@ import java.util.Scanner;
 public class JobCategory {
 	private String jobName;
 	private String jobDescription;
-	private  List<String> jobCategories = new ArrayList<>(
-            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
-    );
-	public List<String> getJobCategories(Scanner sc) {
-		return jobCategories;
-	}
+
+//	public void setJobCategories(List<String> jobCategories) {
+//		this.jobCategories = jobCategories;
+//	}
+	
+//	public List<String> getJobCategories() {
+//		return jobCategories;
+//	}
+
 	public String getJobName() {
 		return jobName;
 	}
@@ -27,7 +30,6 @@ public class JobCategory {
 		this.jobDescription = jobDescription;
 	}
 	public JobCategory(String jobName, String jobDescription) {
-		super();
 		this.jobName = jobName;
 		this.jobDescription = jobDescription;
 	}
