@@ -16,7 +16,6 @@ public class Applicant extends SystemUser{
 	private List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
-	User cUser; //current user
 
 	  public Applicant(String username, String password) {
 		super(username, password);

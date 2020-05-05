@@ -9,6 +9,9 @@ public class SystemUser extends User{
 		// TODO Auto-generated constructor stub
 		
 	}
+	private void blacklist() {
+		this.status = Status.Blacklisted;
+	}
 	
 	
 

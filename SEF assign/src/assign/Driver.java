@@ -220,13 +220,13 @@ public class Driver {
 		}
 		if(cUser instanceof Employer) {
 			System.out.println("Welcome to Employer System");
-			System.out.println("** Employer Menu **\n" 
-												   + "1. Create Offer\n"
-												   + "2. Search and View Applicants\n"
-												   + "3. Create Interview\n" 
-												   + "4. Update Interview Outcome\n" 
-												   + "5. Complaint\n"
-												   + "6. Log Out\n");
+			System.out.println("** Employer Menu **");
+			System.out.println("1. Create Offer");
+			System.out.println("2. Search and View Applicants");
+			System.out.println("3. Create Interview");
+			System.out.println("4. Update Interview Outcome");
+			System.out.println("5. Complaint");
+			System.out.println("6. Log Out");
 			System.out.print("Please Enter your choice:\n");
 			resp = scan.next();
 	    	scan.nextLine();
