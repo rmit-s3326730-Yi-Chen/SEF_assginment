@@ -3,6 +3,7 @@ import java.util.*;
 import exception.*;
 public class Driver {
 	static ArrayList<User> users = new ArrayList<>();
+	static ArrayList<JobOffer> offers = new ArrayList<>();
 	static ArrayList<Complaint>complaints = new ArrayList<>();
 	static User cUser = null;// current user;
 	static User tUser = null;// target user;
@@ -14,15 +15,15 @@ public class Driver {
 	static Complaint aComplaint;
 
 	public static void main(String[] args)  {
-		aUser = new Applicant("a1","1");
+		aUser = new Applicant("a1","1",Status.Available,Type.Local);
 		users.add(aUser);
-		aUser = new Employer("e1","1");
+		aUser = new Employer("e1","1",Status.Available);
 		users.add(aUser);
 		aUser = new SystemStaff("s1","1");
 		users.add(aUser);
-		aUser = new Applicant("a2","1");
+		aUser = new Applicant("a2","1",Status.Available,Type.International);
 		users.add(aUser);
-		aUser = new Employer("e2","1");
+		aUser = new Employer("e2","1",Status.Available);
 		users.add(aUser);
 		aUser = new SystemStaff("s2","1");
 		users.add(aUser);
@@ -61,10 +62,8 @@ public class Driver {
 			
 	}
 
-
-
 	public static void login() {
-		System.out.println("Pleas enter your username:");
+		System.out.println("Please enter your username:");
 		String username = scan.next();
 		scan.nextLine();
 		boolean found = false;
@@ -92,7 +91,7 @@ public class Driver {
 	
 	public static void logout(){
 		login = false;
-		System.out.println("You have logouted");
+		System.out.println("You have logged out");
 	}
 	
 	public static void menu() {
@@ -129,30 +128,38 @@ public class Driver {
 	    	}
 		}
 		if(cUser instanceof Employer) {
-			System.out.println("Welcome to Employer System");
-			System.out.println("** Employer Menu **");
-			System.out.println("1. Create Offer");
-			System.out.println("2. Search and View Applicants");
-			System.out.println("3. Create Interview");
-			System.out.println("4. Update Interview Outcome");
-			System.out.println("5. Complaint");
-			System.out.println("6. Log Out");
-			System.out.println("Please Enter your choice:");
-			resp = scan.next();
-	    	scan.nextLine();
-	    	switch(resp) {
-	    	case("5"):
-	    		
-	    		break;
-	    	case("6"):
-	    		logout();
-	    		break;
-	    	default:
-	    		System.out.println("Sorry, No matched option, please try again");
-	    	
-	    	}
-			
-			
+			System.out.println("Welcome to Employer System " + cUser.getUsername());
+			try {
+				int choose = employerMenu();
+				switch (choose) {
+
+				case (6):
+					logout();
+					break;
+				case (1):
+					// Create offer
+					createOffer();
+					break;
+				case (2):
+					// Search and View applicant
+					searchApplicant();
+					break;
+				case (3):
+					// Create interview
+					break;
+				case (4):
+					// Interview outcome
+					break;
+				case (5):
+					// Make complaint
+					break;
+				default:
+					System.out.println("Sorry, No matched option, please try again");
+
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Please enter an integer value");
+			}
 		}
 		if(cUser instanceof SystemStaff) {
 			System.out.println("Welcome to Staff System");
@@ -170,9 +177,7 @@ public class Driver {
 	    	default:
 	    		System.out.println("Sorry, No matched option, please try again");
 	    	
-	    	}
-			
-			
+	    	}	
 		}
 		
 	}// end of menu
@@ -233,6 +238,103 @@ public class Driver {
 		System.out.println("you have create the complaint");
 		
 	}
+	
+	private static int employerMenu() {
+		int opt;
+		Scanner scan = new Scanner(System.in);
+		do {
+			System.out.println("** Employer Menu **");
+			System.out.println("1. Create Offer");
+			System.out.println("2. Search and View Applicants");
+			System.out.println("3. Create Interview");
+			System.out.println("4. Update Interview Outcome");
+			System.out.println("5. Complaint");
+			System.out.println("6. Log Out");
+			System.out.println("Please Enter your choice:");
+			opt = scan.nextInt();
+		} while (!(opt <= 6));
+		return opt;
+	}
 
+	private static void createOffer() {
+		String title, description;
+		double wage;
+		int type;
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the details of the job");
+		System.out.println("Title: ");
+		title = input.nextLine();
+		System.out.println("Description: ");
+		description = input.nextLine();
+		System.out.println("Wage per hour: ");
+		wage = input.nextDouble();
+		System.out.println("Applicant type required for the offer: ");
+		type = input.nextInt();
+		Type offertype = setOfferType(type);
+		String username = cUser.getUsername();
+		JobOffer offer = new JobOffer(title, description, username, wage, offertype);
+		offers.add(offer);
+		System.out.println(offer.getJobOffer());
+	}
 
+	private static Type setOfferType(int typeChecker) {
+		if (typeChecker == 0) {
+			System.out.println("Offer to Local Students");
+			return Type.Local;
+		} else if (typeChecker == 1) {
+			System.out.println("Offer to International Students");
+			return Type.International;
+		} else {
+			System.out.println("The input need to be 0 for Local, 1 for international");
+			return null;
+		}
+	}
+
+	private static void searchApplicant() {
+		int select;
+		int applicantType;
+		int applicantStatus;
+		Scanner input = new Scanner(System.in);
+		do {
+			System.out.println("Search and View Applicants: 1. By Type 2. By Availability");
+			select = input.nextInt();
+		} while (!(select == 1 || select == 2));
+
+		if (select == 1) {
+
+			do {
+				System.out.println("Enter the appplicant type searching for 0. Local 1. International ");
+				applicantType = input.nextInt();
+			} while (!(applicantType == 0 || applicantType == 1));
+
+			Type appType;
+			if (applicantType == 0) {
+				appType = Type.Local;
+			} else {
+				appType = Type.International;
+			}
+
+			for (int i = 0; i < users.size(); ++i) {
+				User user = users.get(i);
+				if (user instanceof Applicant) {
+					Type app = ((Applicant) user).getType();
+					if (app.equals(appType)) {
+						System.out.println(user.getDetails());
+					}
+				}
+			}
+		} else {
+			System.out.println("Searching and viewing the applicants with status 'AVAILABLE'");
+			for (int i = 0; i < users.size(); ++i) {
+				User user = users.get(i);
+				if (user instanceof Applicant) {
+					Status stat = ((SystemUser) user).getStatus();
+					if (stat.equals(Status.Available)) {
+						System.out.println(user.getDetails());
+					}
+
+				}
+			}
+		}
+	}
 }
