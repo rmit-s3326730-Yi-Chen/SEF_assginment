@@ -196,12 +196,12 @@ public class Driver {
 		String password = scan.next();
 		scan.nextLine();
 		if(type ==1) {
-			aUser = new Applicant(username,password);
+			aUser = new Applicant(username,password,Status.Available,Type.International);
 			users.add(aUser);
 			System.out.println("You have registered as applicant, "+username);
 		}
 		else if(type ==2) {
-			aUser = new Employer(username,password);
+			aUser = new Employer(username,password,Status.Available);
 			users.add(aUser);
 			System.out.println("You have registered as employer, "+username);
 		}
