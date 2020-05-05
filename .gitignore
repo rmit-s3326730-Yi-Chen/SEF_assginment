@@ -1,2 +1,4 @@
 
-# SEF assign/bin
+
+*.class
+SEF assign/src/assign/DriverTest.java
