@@ -261,6 +261,12 @@ public class Driver {
 		double wage;
 		int type;
 		Scanner input = new Scanner(System.in);
+		try {
+			offerHandle();
+		} catch (MultipleOfferException e) {
+			System.err.println(e);
+			return;
+		}
 		System.out.println("Enter the details of the job");
 		System.out.println("Title: ");
 		title = input.nextLine();
@@ -275,6 +281,19 @@ public class Driver {
 		JobOffer offer = new JobOffer(title, description, username, wage, offertype);
 		offers.add(offer);
 		System.out.println(offer.getJobOffer());
+	}
+	
+	private static void offerHandle() throws MultipleOfferException {
+		for (int i = 0; i < offers.size(); ++i) {
+			JobOffer offer = offers.get(i);
+
+			OfferStatus stat = JobOffer.getStatus();
+			String user = JobOffer.getUsername();
+			if ((stat.equals(OfferStatus.Available)) && (user.equals(cUser.getUsername()))) {
+				throw new MultipleOfferException(
+						"There is already an 'AVAILABLE' offer created by the Employer " + user);
+			}
+		}
 	}
 
 	private static Type setOfferType(int typeChecker) {
