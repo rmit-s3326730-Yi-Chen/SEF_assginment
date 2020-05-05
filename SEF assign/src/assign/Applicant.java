@@ -17,9 +17,9 @@ public class Applicant extends SystemUser{
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
 
-	  public Applicant(String username, String password) {
-		super(username, password);
-		// TODO Auto-generated constructor stub
+	  public Applicant(String username, String password,  Status status, Type type) {
+		super(username, password, status);
+		this.type = type;
 	}
 
 	private List<String> jobPreferences = new ArrayList<>();
@@ -34,11 +34,11 @@ public class Applicant extends SystemUser{
 	public void setApplicantEmail(String applicantEmail) {
 		this.applicantEmail = applicantEmail;
 	}
-	public Applicant(String username, String password, String applicantEmail) {
-		super(username, password);
-		// TODO Auto-generated constructor stub
+	public Applicant(String username, String password, Status status, String applicantEmail) {
+		super(username, password, status);
 		this.applicantEmail = applicantEmail;
 	}
+	
 	public boolean setType(int typeChecker) {
 		if(typeChecker ==0) {
 			this.type=Type.Local;
@@ -57,6 +57,12 @@ public class Applicant extends SystemUser{
 	}
 	public Type getType() {
 		return this.type;
+	}
+	
+	public String getDetails() {
+		String print = super.getDetails();
+		print = print + "Type: " + type + "\n";
+		return print;
 	}
 	
 	public boolean handleComplaint() {
