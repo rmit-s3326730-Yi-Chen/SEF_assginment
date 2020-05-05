@@ -152,6 +152,13 @@ public class Driver {
 					break;
 				case (5):
 					// Make complaint
+					try {
+					complaintHandler();
+				} catch (TargetNotFoundException e) {
+					System.err.println(e);
+				} catch (WrongTargetTypeException e) {
+					System.err.println(e);
+				}
 					break;
 				default:
 					System.out.println("Sorry, No matched option, please try again");
@@ -313,6 +320,7 @@ public class Driver {
 		int select;
 		int applicantType;
 		int applicantStatus;
+		int count = 0;
 		Scanner input = new Scanner(System.in);
 		do {
 			System.out.println("Search and View Applicants: 1. By Type 2. By Availability");
@@ -332,13 +340,14 @@ public class Driver {
 			} else {
 				appType = Type.International;
 			}
-
+			
 			for (int i = 0; i < users.size(); ++i) {
 				User user = users.get(i);
 				if (user instanceof Applicant) {
 					Type app = ((Applicant) user).getType();
 					if (app.equals(appType)) {
 						System.out.println(user.getDetails());
+						count ++;
 					}
 				}
 			}
@@ -350,10 +359,25 @@ public class Driver {
 					Status stat = ((SystemUser) user).getStatus();
 					if (stat.equals(Status.Available)) {
 						System.out.println(user.getDetails());
+						count ++;
 					}
-
 				}
 			}
+		}
+		
+		if(count == 0) {
+			try {
+				searchHandle(count);
+			} catch (NoApplicantException e) {
+				System.err.println(e);
+				return;
+			}
+		}
+	}
+
+	public static void searchHandle(int value) throws NoApplicantException {
+		if(value == 0) {
+			throw new NoApplicantException("There no Applicant available for the search applied " + cUser.getUsername());
 		}
 	}
 }
