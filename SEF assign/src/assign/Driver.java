@@ -1,9 +1,11 @@
 package assign;
 import java.util.*;
+import exception.*;
 public class Driver {
 	static ArrayList<User> users = new ArrayList<>();
 	static ArrayList<Complaint>complaints = new ArrayList<>();
 	static User cUser = null;// current user;
+	static User tUser = null;// target user;
 	static boolean login = false;// determine login/logout
 	static String resp = null; // user's response
 	static boolean quit = false;
@@ -18,9 +20,13 @@ public class Driver {
 		users.add(aUser);
 		aUser = new SystemStaff("s1","1");
 		users.add(aUser);
-		Applicant applicant = new Applicant("","");
-		Employer employer = new Employer("","");
-		SystemStaff systemStaff = new SystemStaff("","");
+		aUser = new Applicant("a2","1");
+		users.add(aUser);
+		aUser = new Employer("e2","1");
+		users.add(aUser);
+		aUser = new SystemStaff("s2","1");
+		users.add(aUser);
+
 		
 		do {
 			System.out.println("**Student Casual Employment System**");
@@ -106,7 +112,13 @@ public class Driver {
 	    	scan.nextLine();
 	    	switch(resp) {
 	    	case("7"):
-	    		
+	    		try {
+					complaintHandler();
+				} catch (TargetNotFoundException e) {
+					System.err.println(e);
+				} catch (WrongTargetTypeException e) {
+					System.err.println(e);
+				}
 	    		break;
 	    	case("8"):
 	    		logout();
@@ -189,7 +201,36 @@ public class Driver {
 			System.out.println("You have registered as employer, "+username);
 		}
 	}// end of register
-	public static void ComplaintHandler() {
+	public static void complaintHandler() throws TargetNotFoundException,WrongTargetTypeException{
+		System.out.println("Please enter target's username for your complaint");
+		resp = scan.next();
+		scan.nextLine();
+		boolean found = false;
+		for(User u:users) {
+			if(u.getUsername().equals(resp)) {
+				tUser =u;
+				found = true;
+				break;
+			}
+		}
+		if(!found) {
+			throw new TargetNotFoundException("Could not find the target with username: " +resp);
+		}
+		if(cUser instanceof Applicant) {
+			if(tUser instanceof Applicant) {
+				throw new WrongTargetTypeException("The target is an applicant as well, you can't complaint: " +resp);
+			}
+		}
+		if(cUser instanceof Employer) {
+			if(tUser instanceof Employer) {
+				throw new WrongTargetTypeException("The target is an employer as well, you can't complaint: " +resp);
+			}
+		}
+		System.out.println("Please enter complaint description");
+		String description = scan.nextLine();
+		aComplaint = new Complaint(cUser,description,tUser);
+		complaints.add(aComplaint);
+		System.out.println("you have create the complaint");
 		
 	}
 

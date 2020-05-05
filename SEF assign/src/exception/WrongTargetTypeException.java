@@ -1,8 +1,8 @@
 package exception;
 
 public class WrongTargetTypeException extends Exception {
-	public WrongTargetTypeException(String Message) {
-		super(Message);
+	public WrongTargetTypeException(String message) {
+		super(message);
 	}
 
 }

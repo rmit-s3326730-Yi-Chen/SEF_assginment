@@ -4,15 +4,15 @@ package assign;
 public class Complaint {
 		private String description;
 		private User creater;
-		private String target;
+		private User target;
 		
-		public Complaint(User creater,String description,String target) {
+		public Complaint(User creater,String description,User target) {
 			this.creater =creater;
 			this.description = description;
 			this.target = target;
 		}
 		
-		public String getTarget() {
+		public User getTarget() {
 			return target;
 		}
 		
