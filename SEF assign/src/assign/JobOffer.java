@@ -8,7 +8,7 @@ public class JobOffer {
 	private static String Username;
 	private static String Description;
 	private static double Wage;
-	private static Status Status;
+	private static OfferStatus Status;
 	private ArrayList<JobOffer> offers = new ArrayList<>();
 
 	public JobOffer(String Title, String Description, String Username, Double Wage, Type OfferType) {
@@ -17,7 +17,7 @@ public class JobOffer {
 		this.Username = Username;
 		this.Wage = Wage;
 		this.OfferType = OfferType;
-		this.Status = Status.Available;
+		this.Status = OfferStatus.Available;
 	}
 
 	public String getTitle() {
@@ -36,7 +36,7 @@ public class JobOffer {
 		this.Description = Description;
 	}
 	
-	public String getUsername() {
+	public static String getUsername() {
 		return Username;
 	}
 
@@ -61,11 +61,11 @@ public class JobOffer {
 		return OfferType;
 	}
 
-	public Status getStatus() {
+	public static OfferStatus getStatus() {
 		return Status;
 	}
 
-	public void setStatus(Status Status) {
+	public void setStatus(OfferStatus Status) {
 		this.Status = Status;
 	}
 
@@ -78,5 +78,7 @@ public class JobOffer {
 		print = print + "Type of Applicant: " + OfferType + "\n";
 		print = print + "Status: " + Status + "\n";
 		return print;
+
 	}
+
 }
