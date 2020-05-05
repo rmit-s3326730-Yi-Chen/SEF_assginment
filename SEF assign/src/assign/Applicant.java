@@ -70,47 +70,6 @@ public class Applicant extends SystemUser{
 	public boolean handleOffer() {
 		return false;
 	}
-	public void applicantMenu() {
-		System.out.println("Welcome to Applicant System");
-		System.out.println("**Applicant Menu**");
-		System.out.println("1. Update Employment Records");
-		System.out.println("2. View interview");
-		System.out.println("3. View offer"); //view offer and can make a choice to accept or reject offer, or just view and do not handle it 
-		System.out.println("4. Upload CV");
-		System.out.println("5. Update Details");//availability + type +email
-		System.out.println("6. Update Job Preferences");
-		System.out.println("7. Complaint");
-		System.out.println("8. Log out");
-    	System.out.println("Please Enter Your Choice:");
-    	int response = scan.nextInt();
-    	switch (response) {
-    	case(1):
-    		// update employment records
-    		
-    		break;
-    	case(2):
-    		//View interview
-    		break;
-    	case(3):
-    		//view offer
-    		break;
-    	case(4):
-    		//Upload CV
-    		break;
-    	case(5):
-    		//Update Details
-    		break;
-        case (6):
-        	updateJobPreferences();
-            break;
-        case(7):
-        	//Complaint
-        	break;
-        case (8):
-        	System.exit(8);
-            break;
-    						}
-	}
 	
 	public void updateJobPreferences() {
 	    boolean goBack = false;
