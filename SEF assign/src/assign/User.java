@@ -24,7 +24,10 @@ public abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
-
+	
+	public String getDetails() {
+		String print = "";
+		print = print + "Username: " + username + "\n";
+		return print;
+	}
 }
