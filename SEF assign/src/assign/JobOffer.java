@@ -44,13 +44,12 @@ public class JobOffer {
 		this.Username = Username;
 	}
 
-	public double setWage(Double Wage) {
-
-		return Wage;
+	public void setWage(Double Wage) {
+		this.Wage = Wage;
 	}
 
-	public void getWage() {
-		this.Wage = Wage;
+	public double getWage() {
+		return Wage;
 	}
 
 	public void setOfferType(Type OfferType) {
