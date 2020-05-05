@@ -13,7 +13,6 @@ public class Employer extends SystemUser {
 	private ArrayList<JobOffer> offers = new ArrayList<>();
 
 	Scanner input = new Scanner(System.in);
-	int choice;
 
 
 	private void complaint() {

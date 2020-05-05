@@ -9,6 +9,7 @@ public class Driver {
 	static boolean quit = false;
 	static Scanner scan = new Scanner(System.in);
 	static User aUser;
+	static Complaint aComplaint;
 
 	public static void main(String[] args)  {
 		aUser = new Applicant("a1","1");
@@ -51,112 +52,7 @@ public class Driver {
 	    		System.out.println("Sorry, No matched option, please try again");
 	    	}
 		}while(!quit);
-		
-		
-//	try {
-//			
-//		do {
-//			System.out.println("**Student Casual Employment System**");
-//	       	System.out.println("1. Log in");
-//	       	System.out.println("2. Register as applicant");
-//	       	System.out.println("3. Register as employer");
-//	       	System.out.println("4. Quit");
-//	    	System.out.println("Please Enter Your Choice:");
-//
-//	    	resp = scan.nextInt();
-//	    	
-//	    	if(resp ==1) {//login
-//	    		System.out.println("Please enter your username:");
-//	    		resp2 = scan.next();
-//	    		scan.nextLine();
-//	    		boolean found = false;
-//	    		for(User u:users) {
-//	    			if(u.getUsername().equals(resp2)) {
-//	    				cUser = u;
-//	    				found =true;
-//	    				break;
-//	    			}
-//	    		}
-//	    		if(!found) {
-//	    			System.out.println("No such username.");
-//	    			continue;
-//	    		}
-//	    		System.out.println("Please enter password:");
-//	    		resp2 = scan.next();
-//	    		scan.nextLine();
-//	    		if(resp2.equals(cUser.getPassword())) {
-//	    			login= true;
-//	    		}
-//	    		else {
-//	    			System.out.println("Wrong password");
-//	    		}
-//	    	}
-//	    	if(resp ==2) {
-//	    		System.out.println("Please enter username:");
-//	    		String username = scan.next();
-//	    		scan.nextLine();
-//	    		System.out.println("Please enter password:");
-//	    		String password = scan.next();
-//	    		aUser = new Applicant (username,password);
-//	    		scan.nextLine();
-//	    		users.add(aUser);
-//	    		System.out.println("You have registered as applicant, "+username);
-//
-//	    	}
-//	    	if(resp ==3) {
-//	    		System.out.println("Please enter username:");
-//	    		String username = scan.next();
-//	    		scan.nextLine();
-//	    		System.out.println("Please enter password:");
-//	    		String password = scan.next();
-//	    		aUser = new Employer (username,password);
-//	    		scan.nextLine();
-//	    		users.add(aUser);
-//	    		System.out.println("You have registered as employer, "+username);
-//	    	}
-//	    	
-//	    	if(resp == 4) {
-//	    		System.out.println("Thank your for using Student Casual Employment System");
-//	    	}
-//	    	
-//	    	while(login) {
-//				if(cUser instanceof Applicant) {
-//					applicant.applicantMenu();
-//				}
-//				if(cUser instanceof Employer) {
-//					employer.employerMenu();
-//					
-//				}
-//				if(cUser instanceof SystemStaff) {
-//					systemStaff.staffMenu();
-//					
-//				}
-//		       	
-//		    	try {
-//		    		resp = scan.nextInt();
-//		    		
-//		    	}
-//		    	catch(Exception e) {
-//		    		System.out.println("Invaild Input! Please enter number:");
-//		    	}
-//		    	scan.nextLine();
-//		    	
-//		    	
-//		    	if(resp ==9) {
-//		    		login =false;
-//		    		break;
-//		    	}
-//	    	}
-//			
-//		}while(resp!=4);
-//	}catch(Exception e) {
-//		scan.nextLine();
-//		System.out.println("Invaild Input! System has automatically exited, you can restart to log in again");
-//		
-//		
-//		}
-		
-		
+			
 	}
 
 
@@ -209,7 +105,9 @@ public class Driver {
 	    	resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
-	    	
+	    	case("7"):
+	    		
+	    		break;
 	    	case("8"):
 	    		logout();
 	    		break;
@@ -227,10 +125,13 @@ public class Driver {
 			System.out.println("4. Update Interview Outcome");
 			System.out.println("5. Complaint");
 			System.out.println("6. Log Out");
-			System.out.print("Please Enter your choice:\n");
+			System.out.println("Please Enter your choice:");
 			resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
+	    	case("5"):
+	    		
+	    		break;
 	    	case("6"):
 	    		logout();
 	    		break;
@@ -287,6 +188,9 @@ public class Driver {
 			users.add(aUser);
 			System.out.println("You have registered as employer, "+username);
 		}
+	}// end of register
+	public static void ComplaintHandler() {
+		
 	}
 
 
