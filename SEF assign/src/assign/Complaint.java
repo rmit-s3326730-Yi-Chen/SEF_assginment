@@ -12,8 +12,8 @@ public class Complaint {
 			this.target = target;
 		}
 		
-		public User getTarget() {
-			return target;
+		public String getTarget() {
+			return target.getUsername();
 		}
 		
 	}
