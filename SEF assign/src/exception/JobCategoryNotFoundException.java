@@ -1,4 +1,4 @@
-package assign;
+package exception;
 
 public class JobCategoryNotFoundException extends Exception {
 
