@@ -1,11 +1,13 @@
 package assign;
 
 public class SystemUser extends User{
-	private static Status status;
+	private Status status;
+	private int complaintCount;
 	
 	public SystemUser(String username, String password, Status status ) {
 		super(username, password);
 		this.status = Status.Available;
+		this.complaintCount =0;
 	}
 	
 	public void setStatus(Status status) {
@@ -21,7 +23,17 @@ public class SystemUser extends User{
 		print = print + "Status: " + status + "\n";
 		return print;
 	}
-	private void blacklist() {
+	public void blacklist() {
 		this.status = Status.Blacklisted;
 	}	
+	public void setComplaintCount(int count) {
+		this.complaintCount = count;
+	}
+	public void handleNewComplaint() {
+		this.complaintCount++;
+		if(complaintCount>=3) {
+			blacklist();
+			System.out.println("The user:" +super.getUsername()+" is blacklisted");
+		}
+	}
 }

@@ -13,7 +13,7 @@ public class Applicant extends SystemUser{
 	private String jobResponsibility;
 	private LocalDate beginDate;
 	private LocalDate endDate;
-	private List<String> jobCategories = new ArrayList<>(
+	private static List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
 
