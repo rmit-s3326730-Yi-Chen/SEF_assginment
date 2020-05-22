@@ -1,4 +1,9 @@
 package assign;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import assign.JobCategory;
@@ -24,6 +29,10 @@ public class Applicant extends SystemUser{
 	private String organisation;
 	private LocalDate startDate;
 	private LocalDate finishedDate;
+	private String name;
+	private String birthDate;
+	private String cvDescription;
+//	private String cv;
 	private List<String> pastJobs = new ArrayList<>();
 	private List<String> jobPreferences = new ArrayList<>();
 	private List<String>licences = new ArrayList<>();
@@ -339,6 +348,104 @@ public class Applicant extends SystemUser{
 	
 	// upload CV
 	public void uploadCv() {
+        boolean goBack = false;
+        while (!goBack) {
+            try {
+                System.out.printf("What would you like to do?\n\n" +
+                        "1. Add CV\n" +
+                        "2. Remove CV\n" +
+                        "3. View CV\n" +
+                        "0. Go back\n\n");
+                int response = scan.nextInt();
+                scan.nextLine();
+                switch (response) {
+                    case (1):
+                        addCV();
+                        break;
+                    case (2):
+                        removeCV();
+                        break;
+                    case (3):
+                        viewCV();
+                        break;
+                    case (0):
+                        goBack = true;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+            			System.out.println("Invalid Input");
+            }
+        }
+	}
+//	private Applicant currentUser;
+	public void addCV() {
+//	       System.out.println("Enter the file name of your CV: (Must be .txt file, but do not include in file name below)");
+//	        String filename = scan.nextLine();
+//	        filename += ".txt";
+//
+//	        try
+//	        {
+//	            FileReader file = new FileReader(filename);
+//	            BufferedReader bR = new BufferedReader(file);
+//
+//	            String cv = "";
+//	            String line = null;
+//
+//	            while((line = bR.readLine()) != null)
+//	            {
+//	                cv += line + "\n";
+//	            }
+//
+//	            currentUser.setCv(cv);
+//	            System.out.println("CV has been added!");
+//	        }
+//	        catch (FileNotFoundException e)
+//	        {
+//	            System.out.println("File not found!");
+//	        }
+//	        catch (IOException e)
+//	        {
+//	            e.printStackTrace();
+//	        }
+		try{
+			FileWriter myWriter = new FileWriter("cv.txt");
+			System.out.println("Name:\t"+ name);
+			name = scan.nextLine();
+			System.out.println("Birth Date:\t"+birthDate);
+			birthDate = scan.nextLine();
+			System.out.println("Description:\t"+cvDescription);
+			cvDescription = scan.nextLine();
+			myWriter.write(name);
+			myWriter.write(birthDate);
+			myWriter.write(cvDescription);
+			
+			System.out.println("Successfully wrote to the file");
+		}catch(IOException e) {
+			System.out.println("An error occured.");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void removeCV() {
+//	       currentUser.setCv("");
+//
+//	        System.out.println("CV has been removed!\n");
+	}
+	
+	public void viewCV() {
+//        if(currentUser.getCv() != "")
+//        {
+//            System.out.println(currentUser.getCv() + "\n");
+//        }
+//        else
+//        {
+//            System.out.println("No CV has been added!\n");
+//        }
+	}
+	
+		// update details
+	public void updateDetails() {
 		boolean goBack = false;
         while (!goBack) {
             try {
@@ -380,7 +487,6 @@ public class Applicant extends SystemUser{
             }     
         }
 	}
-	
 	private void addLicence() {
         boolean validInput = false;
 
@@ -573,10 +679,7 @@ public class Applicant extends SystemUser{
         }
 	}
 	
-	// update details
-	public void updateDetails() {
-		
-	}
+
 	
 		public void setJobPreferences(List<String> jobPreferences) {
 		this.jobPreferences = jobPreferences;
@@ -735,6 +838,38 @@ public class Applicant extends SystemUser{
 
 		public void setQualifications(List<String> qualifications) {
 			this.qualifications = qualifications;
+		}
+
+//		public String getCv() {
+//			return cv;
+//		}
+//
+//		public void setCv(String cv) {
+//			this.cv = cv;
+//		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getBirthDate() {
+			return birthDate;
+		}
+
+		public void setBirthDate(String birthDate) {
+			this.birthDate = birthDate;
+		}
+
+		public String getCvDescription() {
+			return cvDescription;
+		}
+
+		public void setCvDescription(String cvDescription) {
+			cvDescription = cvDescription;
 		}
 	
 }

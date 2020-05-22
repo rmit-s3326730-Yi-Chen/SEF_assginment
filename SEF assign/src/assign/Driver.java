@@ -74,6 +74,12 @@ public class Driver {
 				break;
 			}
 		}
+		if(found) {
+			if(((SystemUser) cUser).getStatus()==Status.Blacklisted) {
+				System.out.println("Your account have been added to blacklist, please contact SystemStaff");
+				return;
+			}
+		}
 		if(!found) {
 			System.out.println("No such username.");
 			return;
@@ -184,7 +190,7 @@ public class Driver {
 			System.out.println("Welcome to Staff System");
 			System.out.println("**Staff Menu**");
 			System.out.println("1. View blacklist");
-			System.out.println("2. View Job Categories");
+			System.out.println("2. Add Job Categories");
 			System.out.println("3. Log out");
 	    	System.out.println("Please Enter Your Choice:");
 	    	resp = scan.next();
@@ -253,7 +259,7 @@ public class Driver {
 		System.out.println("Please enter complaint description");
 		String description = scan.nextLine();
 		aComplaint = new Complaint(cUser,description,tUser);
-		SystemStaff.getComplaints().add(aComplaint);
+		SystemUser.getComplaints().add(aComplaint);
 		System.out.println("you have create the complaint");
 		((SystemUser) tUser).handleNewComplaint();
 		
