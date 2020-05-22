@@ -20,9 +20,14 @@ public class Applicant extends SystemUser{
 	private String issuer;
 	private LocalDate issuedDate;
 	private LocalDate validDate;
+	private String courseName;
+	private String organisation;
+	private LocalDate startDate;
+	private LocalDate finishedDate;
 	private List<String> pastJobs = new ArrayList<>();
 	private List<String> jobPreferences = new ArrayList<>();
 	private List<String>licences = new ArrayList<>();
+	private List<String>qualifications = new ArrayList<>();
 	private static List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
@@ -358,11 +363,14 @@ public class Applicant extends SystemUser{
                         viewLicence();
                         break;
                     case (4):
-//                        addQualification();
+                        addQualification();
                         break;
                     case (5):
-//                        removeQualification();
+                        removeQualification();
                         break;
+                    case(6):
+                    	viewQualification();
+                    	break;
                     case (0):
                         goBack = true;
                         break;
@@ -470,6 +478,96 @@ public class Applicant extends SystemUser{
             System.out.println(count + ". " + l.toString());
             count++;
             if((count-6)%5 == 0) {
+            	System.out.println("********************");
+            }
+        }
+	}
+	
+	private void addQualification() {
+        boolean validInput = false;
+
+        while(!validInput) {
+            try {
+                System.out.println("What is the course name?");
+                courseName = scan.nextLine();
+
+                System.out.println("What organisation?");
+                organisation = scan.nextLine();
+
+                System.out.println("When did you start? (Format: DD-MM-YYYY)");
+                String issuedDateStr = scan.nextLine();
+                Scanner s = new Scanner(issuedDateStr).useDelimiter("-");
+                int day = s.nextInt();
+                int month = s.nextInt();
+                int year = s.nextInt();
+                startDate = LocalDate.of(year, month, day);
+
+                System.out.println("When did you end? (Format: DD-MM-YYYY)");
+                String validDateStr = scan.nextLine();
+                Scanner s2 = new Scanner(validDateStr).useDelimiter("-");
+                int day2 = s2.nextInt();
+                int month2 = s2.nextInt();
+                int year2 = s2.nextInt();
+                finishedDate = LocalDate.of(year2, month2, day2);
+
+                this.qualifications.add(courseName);
+                this.qualifications.add(organisation);
+                this.qualifications.add(issuedDateStr);
+                this.qualifications.add(validDateStr);
+
+                validInput = true;
+
+                System.out.println("Successfully added a qualification");
+
+            } catch (InputMismatchException e) {
+            				System.out.println("Invalid Input");
+            }
+        }
+	}
+	
+	private void removeQualification() {
+        System.out.println("Please type one of these qualifications to remove\n");
+        int count = 1;
+        for (String q : qualifications) {
+            System.out.println(count + ". " + q.toString());
+            count++;
+            System.out.println("***********************");
+        }
+  
+        String response = scan.nextLine();
+        if (getQualifications().contains(response)) {
+	        this.qualifications.remove(response);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response1 = scan.nextLine();
+        if (getQualifications().contains(response1)) {
+	        this.qualifications.remove(response1);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response2 = scan.nextLine();
+        if (getQualifications().contains(response2)) {
+	        this.qualifications.remove(response2);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response3 = scan.nextLine();
+        if (getQualifications().contains(response3)) {
+	        this.qualifications.remove(response3);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        
+	}
+	
+	private void viewQualification() {
+        System.out.println("Your qualifications are..\n");
+        int count = 1;
+        for (String qa : qualifications) {
+            System.out.println(count + ". " + qa.toString());
+            count++;
+            if((count-5)%4 == 0) {
             	System.out.println("********************");
             }
         }
@@ -597,6 +695,46 @@ public class Applicant extends SystemUser{
 
 		public void setValidDate(LocalDate validDate) {
 			this.validDate = validDate;
+		}
+
+		public String getCourseName() {
+			return courseName;
+		}
+
+		public void setCourseName(String courseName) {
+			this.courseName = courseName;
+		}
+
+		public String getOrganisation() {
+			return organisation;
+		}
+
+		public void setOrganisation(String organisation) {
+			this.organisation = organisation;
+		}
+
+		public LocalDate getStartDate() {
+			return startDate;
+		}
+
+		public void setStartDate(LocalDate startDate) {
+			this.startDate = startDate;
+		}
+
+		public LocalDate getFinishedDate() {
+			return finishedDate;
+		}
+
+		public void setFinishedDate(LocalDate finishedDate) {
+			this.finishedDate = finishedDate;
+		}
+
+		public List<String> getQualifications() {
+			return qualifications;
+		}
+
+		public void setQualifications(List<String> qualifications) {
+			this.qualifications = qualifications;
 		}
 	
 }
