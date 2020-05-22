@@ -1,8 +1,11 @@
 package assign;
 
+import java.util.ArrayList;
+
 public class SystemUser extends User{
 	private Status status;
 	private int complaintCount;
+	private static ArrayList<Complaint>complaints = new ArrayList<>();
 	
 	public SystemUser(String username, String password, Status status ) {
 		super(username, password);
@@ -16,6 +19,9 @@ public class SystemUser extends User{
 
 	public Status getStatus() {
 		return status;
+	}
+	public static ArrayList<Complaint> getComplaints() {
+		return complaints;
 	}
 	
 	public String getDetails() {
