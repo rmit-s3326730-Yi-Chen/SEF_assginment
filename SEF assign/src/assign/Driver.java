@@ -123,6 +123,12 @@ public class Driver {
 	    	switch(resp) {
 	    	case("1"):
 	    		((Applicant)cUser).updateEmploymentRecord();
+	    		break;
+	    	case("2"):
+	    		break;
+	    	case("3"):
+	    		viewOffer();
+	    		break;
 	    	case("6"):
 	    		((Applicant) cUser).updateJobPreferences();
 	    		break;
@@ -262,7 +268,14 @@ public class Driver {
 		((SystemUser) tUser).handleNewComplaint();
 		
 	}
-	
+	public static void viewOffer() {
+		for(JobOffer o:offers) {
+			if(o.getUser().equals(cUser)) {
+				System.out.println(o.getJobOffer());
+			}
+		}
+		
+	}
 	private static int employerMenu() {
 		int opt;
 		Scanner scan = new Scanner(System.in);

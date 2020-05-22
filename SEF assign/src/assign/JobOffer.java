@@ -69,6 +69,9 @@ public class JobOffer {
 	public void setStatus(OfferStatus Status) {
 		this.Status = Status;
 	}
+	public User getUser() {
+		return tUser;
+	}
 
 	public String getJobOffer() {
 		String print = "\n";
