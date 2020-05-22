@@ -1,8 +1,8 @@
 package assign;
 
-public enum Availability {
-	PartTime,
-	FullTime,
-	Internship;
-
-}
+//public enum Availability {
+//	PartTime,
+//	FullTime,
+//	Internship;
+//
+//}

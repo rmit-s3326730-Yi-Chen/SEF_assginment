@@ -1,17 +1,20 @@
 package assign;
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.util.*;
-import assign.JobCategory;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Applicant extends SystemUser{
 	private Type type;
 	Scanner scan = new Scanner(System.in);
-
+//	private Availability availability;
 	private String applicantEmail;
 	private Status status;
 	private String companyName;
@@ -32,11 +35,15 @@ public class Applicant extends SystemUser{
 	private String name;
 	private String birthDate;
 	private String cvDescription;
-//	private String cv;
+	private String availability;
+	private LocalDate suitableStartTime;
+	private LocalDate suitableEndTime;
+	private String suitableJob;
 	private List<String> pastJobs = new ArrayList<>();
 	private List<String> jobPreferences = new ArrayList<>();
 	private List<String>licences = new ArrayList<>();
 	private List<String>qualifications = new ArrayList<>();
+	private List<String> availabilities = new ArrayList<>(Arrays.asList("part time","full time","internship"));
 	private static List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
@@ -45,6 +52,7 @@ public class Applicant extends SystemUser{
 	  public Applicant(String username, String password,  Status status, Type type) {
 		super(username, password, status);
 		this.type = type;
+
 	}
 
 	public Applicant(String username, String password, Status status, String applicantEmail) {
@@ -377,48 +385,32 @@ public class Applicant extends SystemUser{
             }
         }
 	}
-//	private Applicant currentUser;
+
 	public void addCV() {
-//	       System.out.println("Enter the file name of your CV: (Must be .txt file, but do not include in file name below)");
-//	        String filename = scan.nextLine();
-//	        filename += ".txt";
-//
-//	        try
-//	        {
-//	            FileReader file = new FileReader(filename);
-//	            BufferedReader bR = new BufferedReader(file);
-//
-//	            String cv = "";
-//	            String line = null;
-//
-//	            while((line = bR.readLine()) != null)
-//	            {
-//	                cv += line + "\n";
-//	            }
-//
-//	            currentUser.setCv(cv);
-//	            System.out.println("CV has been added!");
-//	        }
-//	        catch (FileNotFoundException e)
-//	        {
-//	            System.out.println("File not found!");
-//	        }
-//	        catch (IOException e)
-//	        {
-//	            e.printStackTrace();
-//	        }
+	
+// create a cv.txt
+//	    	try {
+//	    	      File myObj = new File("cv.txt");
+//	    	      if (myObj.createNewFile()) {
+//	    	        System.out.println("File created: " + myObj.getName());
+//	    	      } 
+//	    	    } catch (IOException e) {
+//	    	      System.out.println("An error occurred.");
+//	    	      e.printStackTrace();
+//	    	    }
+// add information in the cv.txt
 		try{
 			FileWriter myWriter = new FileWriter("cv.txt");
-			System.out.println("Name:\t"+ name);
+			System.out.println("Name:\t");
 			name = scan.nextLine();
-			System.out.println("Birth Date:\t"+birthDate);
+			System.out.println("Birth Date:\t");
 			birthDate = scan.nextLine();
-			System.out.println("Description:\t"+cvDescription);
+			System.out.println("Description:\t");
 			cvDescription = scan.nextLine();
-			myWriter.write(name);
-			myWriter.write(birthDate);
-			myWriter.write(cvDescription);
-			
+			myWriter.write(name+"\n");
+			myWriter.write(birthDate+"\n");
+			myWriter.write(cvDescription+"\n");
+			myWriter.close();
 			System.out.println("Successfully wrote to the file");
 		}catch(IOException e) {
 			System.out.println("An error occured.");
@@ -426,22 +418,36 @@ public class Applicant extends SystemUser{
 		}
 		
 	}
+
 	
 	public void removeCV() {
-//	       currentUser.setCv("");
-//
-//	        System.out.println("CV has been removed!\n");
-	}
+				PrintWriter pw = null;
+		try {
+			pw = new PrintWriter("cv.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		pw.close();
+		
+		}
+
+
 	
 	public void viewCV() {
-//        if(currentUser.getCv() != "")
-//        {
-//            System.out.println(currentUser.getCv() + "\n");
-//        }
-//        else
-//        {
-//            System.out.println("No CV has been added!\n");
-//        }
+		try {
+		      File myObj = new File("cv.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        System.out.println(data);
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+
 	}
 	
 		// update details
@@ -456,6 +462,7 @@ public class Applicant extends SystemUser{
                         "4. Add a Qualification\n" +
                         "5. Remove a Qualification\n" +
                         "6. View Qualifications\n" +
+                        "7. update Availability\n"+
                         "0. Go back\n\n");
                 int response = scan.nextInt();
                 scan.nextLine();
@@ -477,6 +484,9 @@ public class Applicant extends SystemUser{
                         break;
                     case(6):
                     	viewQualification();
+                    	break;
+                    case(7):
+                    	updateAvailability();
                     	break;
                     case (0):
                         goBack = true;
@@ -679,7 +689,133 @@ public class Applicant extends SystemUser{
         }
 	}
 	
+	public void updateAvailability() {
+        boolean goBack = false;
+        while (!goBack) {
+            try {
+                System.out.printf("What would you like to do?\n\n" +
+                        "1. Add An Availability\n" +
+                        "2. Remove An Availability\n" +
+                        "3. View Availabilities\n" +
+                        "0. Go back\n\n");
+                int response = scan.nextInt();
+                scan.nextLine();
+                switch (response) {
+                    case (1):
+                        addAvailability();
+                        break;
+                    case (2):
+                        removeAvailability();
+                        break;
+                    case (3):
+                        viewAvailabilities();
+                        break;
+                    case (0):
+                        goBack = true;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+            		System.out.println("Invalid Input");
+            }
+        }
+	}
+//	Applicant cUser;
+	private void addAvailability() {
+		boolean validInput = false;
+        while(!validInput) {
+		try {
+            System.out.println("Please type one of these availabilities to add to your selected preferences\n");
+            availability = scan.nextLine();
 
+            System.out.println("Please type a suitable job\n");
+            suitableJob = scan.nextLine();
+
+            System.out.println("When is the suitable time for you to start your work? (Format: DD-MM-YYYY)\n");
+            String startDateStr = scan.nextLine();
+            Scanner s = new Scanner(startDateStr).useDelimiter("-");
+            int day = s.nextInt();
+            int month = s.nextInt();
+            int year = s.nextInt();
+            suitableStartTime = LocalDate.of(year, month, day);
+
+            System.out.println("When is the suitable time for you to start your work? (Format: DD-MM-YYYY)\n");
+            String beginDateStr = scan.nextLine();
+            Scanner s2 = new Scanner(beginDateStr).useDelimiter("-");
+            int day2 = s2.nextInt();
+            int month2 = s2.nextInt();
+            int year2 = s2.nextInt();
+            suitableEndTime = LocalDate.of(year2, month2, day2);
+
+            if(getAvailabilities().contains(availability)) {
+            	this.availabilities.add(availability);
+            }else {
+            	System.out.println("Wrong Input");
+            }
+            
+            if(getJobCategories().contains(suitableJob)) {
+            	this.availabilities.add(suitableJob);
+            }else {
+            	System.out.println("You can't add a job that not exist in the list of job category");
+            }
+            this.availabilities.add(startDateStr);
+            this.availabilities.add(beginDateStr);
+
+            validInput = true;
+
+            System.out.println("Successfully added your availability");
+
+        } catch (InputMismatchException e) {
+        				System.out.println("Invalid Input");
+        }
+        }
+	}
+	
+	private void removeAvailability() {
+		System.out.println("Please type one of these availabilities you want to remove");
+        int count = 1;
+        for (String a : availabilities) {
+            System.out.println(count + ". " + a.toString());
+            count++;
+            System.out.println("***********************");
+        }
+        String response = scan.nextLine();
+        if (getAvailabilities().contains(response)) {
+	        this.availabilities.remove(response);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response1 = scan.nextLine();
+        if (getAvailabilities().contains(response1)) {
+	        this.availabilities.remove(response1);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response2 = scan.nextLine();
+        if (getAvailabilities().contains(response2)) {
+	        this.availabilities.remove(response2);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response3 = scan.nextLine();
+        if (getAvailabilities().contains(response3)) {
+	        this.availabilities.remove(response3);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+	}
+	
+	private void viewAvailabilities() {
+        System.out.println("Your availabilities are..\n");
+        int count = 1;
+        for (String a : availabilities) {
+            System.out.println(count + ". " + a.toString());
+            count++;
+            	System.out.println("********************");
+
+        }
+       
+        
+	}
 	
 		public void setJobPreferences(List<String> jobPreferences) {
 		this.jobPreferences = jobPreferences;
@@ -727,6 +863,14 @@ public class Applicant extends SystemUser{
 		}
 		public List<String> getJobPreferences() {
 			return jobPreferences;
+		}
+
+		public List<String> getAvailabilities() {
+			return availabilities;
+		}
+
+		public void setAvailabilities(List<String> availabilities) {
+			this.availabilities = availabilities;
 		}
 
 		public String getApplicantEmail() {
@@ -840,14 +984,6 @@ public class Applicant extends SystemUser{
 			this.qualifications = qualifications;
 		}
 
-//		public String getCv() {
-//			return cv;
-//		}
-//
-//		public void setCv(String cv) {
-//			this.cv = cv;
-//		}
-
 		public String getName() {
 			return name;
 		}
@@ -868,8 +1004,42 @@ public class Applicant extends SystemUser{
 			return cvDescription;
 		}
 
-		public void setCvDescription(String cvDescription) {
-			cvDescription = cvDescription;
+//		public void setCvDescription(String cvDescription) {
+//			cvDescription = cvDescription;
+//		}
+
+		public String getAvailability() {
+			return availability;
 		}
+
+		public void setAvailability(String availability) {
+			this.availability = availability;
+		}
+
+		public LocalDate getSuitableStartTime() {
+			return suitableStartTime;
+		}
+
+		public void setSuitableStartTime(LocalDate suitableStartTime) {
+			this.suitableStartTime = suitableStartTime;
+		}
+
+		public LocalDate getSuitableEndTime() {
+			return suitableEndTime;
+		}
+
+		public void setSuitableEndTime(LocalDate suitableEndTime) {
+			this.suitableEndTime = suitableEndTime;
+		}
+
+		public String getSuitableJob() {
+			return suitableJob;
+		}
+
+		public void setSuitableJob(String suitableJob) {
+			this.suitableJob = suitableJob;
+		}
+
+
 	
 }
