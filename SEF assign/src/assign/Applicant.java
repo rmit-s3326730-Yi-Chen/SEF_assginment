@@ -15,8 +15,14 @@ public class Applicant extends SystemUser{
 	private LocalDate beginDate;
 	private LocalDate endDate;	
 	private String referenceName;
+	private String licenceName;
+	private String licenceNumber;
+	private String issuer;
+	private LocalDate issuedDate;
+	private LocalDate validDate;
 	private List<String> pastJobs = new ArrayList<>();
 	private List<String> jobPreferences = new ArrayList<>();
+	private List<String>licences = new ArrayList<>();
 	private static List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
@@ -229,7 +235,7 @@ public class Applicant extends SystemUser{
     }
 	
 	private void removePastJob() {	
-        System.out.println("Please type one of these past jobs to remove\n");
+        System.out.println("Please type the details of the past jobs you want to remove\n");
         int count = 1;
         for (String pj : pastJobs) {
             System.out.println(count + ". " + pj.toString());
@@ -325,6 +331,155 @@ public class Applicant extends SystemUser{
         }
 
 	}
+	
+	// upload CV
+	public void uploadCv() {
+		boolean goBack = false;
+        while (!goBack) {
+            try {
+                System.out.printf("What would you like to do?\n\n" +
+                        "1. Add A Licence\n" +
+                        "2. Remove A Licence\n" +
+                        "3. View Licences\n" +
+                        "4. Add a Qualification\n" +
+                        "5. Remove a Qualification\n" +
+                        "6. View Qualifications\n" +
+                        "0. Go back\n\n");
+                int response = scan.nextInt();
+                scan.nextLine();
+                switch (response) {
+                    case (1):
+                        addLicence();
+                        break;
+                    case (2):
+                        removeLicence();
+                        break;
+                    case (3):
+                        viewLicence();
+                        break;
+                    case (4):
+//                        addQualification();
+                        break;
+                    case (5):
+//                        removeQualification();
+                        break;
+                    case (0):
+                        goBack = true;
+                        break;
+                }
+            } catch (InputMismatchException e) {
+               System.out.println("Invalid Input");
+            }     
+        }
+	}
+	
+	private void addLicence() {
+        boolean validInput = false;
+
+        while(!validInput)
+        {
+            try
+            {
+                System.out.println("What Licence name?");
+                licenceName = scan.nextLine();
+
+                System.out.println("What is the licence number?");
+                licenceNumber = scan.nextLine();
+
+                System.out.println("Who issued it?");
+                issuer = scan.nextLine();
+
+                System.out.println("When was it issued? (Format: DD-MM-YYYY)");
+                String issuedDateStr = scan.nextLine();
+                Scanner s = new Scanner(issuedDateStr).useDelimiter("-");
+                int day = s.nextInt();
+                int month = s.nextInt();
+                int year = s.nextInt();
+                issuedDate = LocalDate.of(year,month,day);
+
+                System.out.println("When is it valid till? (Format: DD-MM-YYYY)");
+                String validDateStr = scan.nextLine();
+                Scanner s2 = new Scanner(validDateStr).useDelimiter("-");
+                int day2 = s2.nextInt();
+                int month2 = s2.nextInt();
+                int year2 = s2.nextInt();
+                validDate = LocalDate.of(year2,month2,day2);
+
+                this.licences.add(licenceName);
+                this.licences.add(licenceNumber);
+                this.licences.add(issuer);
+                this.licences.add(issuedDateStr);
+                this.licences.add(validDateStr);
+                validInput = true;
+
+                System.out.println("Successfully added a licence");
+                
+            }
+            catch (InputMismatchException e)
+            {
+                System.out.println("Invalid Input");
+            }
+        }
+	}
+	
+	private void removeLicence() {
+	       System.out.println("Please type the licences details you want to remove\n");
+	        int count = 1;
+	        for (String li : licences) {
+	            System.out.println(count + ". " + li.toString());
+	            count++; 
+	            	System.out.println("*********************");
+	        }
+
+	        String response = scan.nextLine();
+	        if (getLicences().contains(response)) {
+		        this.licences.remove(response);
+		      } else {
+		        System.out.println("Wrong input");
+		      }
+	        String response1 = scan.nextLine();
+	        if (getLicences().contains(response1)) {
+		        this.licences.remove(response1);
+		      } else {
+		        System.out.println("Wrong input");
+		      }
+	        String response2 = scan.nextLine();
+	        if (getLicences().contains(response2)) {
+		        this.licences.remove(response2);
+		      } else {
+		        System.out.println("Wrong input");
+		      }
+	        String response3 = scan.nextLine();
+	        if (getLicences().contains(response3)) {
+		        this.licences.remove(response3);
+		      } else {
+		        System.out.println("Wrong input");
+		      }
+	        String response4= scan.nextLine();
+	        if (getLicences().contains(response4)) {
+		        this.licences.remove(response4);
+		      } else {
+		        System.out.println("Wrong input");
+		      }
+	}
+	
+	private void viewLicence() {
+        System.out.println("Your licences are..\n");
+        int count = 1;
+        for (String l : licences) {
+            System.out.println(count + ". " + l.toString());
+            count++;
+            if((count-6)%5 == 0) {
+            	System.out.println("********************");
+            }
+        }
+	}
+	
+	// update details
+	public void updateDetails() {
+		
+	}
+	
 		public void setJobPreferences(List<String> jobPreferences) {
 		this.jobPreferences = jobPreferences;
 	}
@@ -394,6 +549,54 @@ public class Applicant extends SystemUser{
 
 		public void setReferenceName(String referenceName) {
 			this.referenceName = referenceName;
+		}
+
+		public List<String> getLicences() {
+			return licences;
+		}
+
+		public void setLicences(List<String> licences) {
+			this.licences = licences;
+		}
+
+		public String getLicenceName() {
+			return licenceName;
+		}
+
+		public void setLicenceName(String licenceName) {
+			this.licenceName = licenceName;
+		}
+
+		public String getLicenceNumber() {
+			return licenceNumber;
+		}
+
+		public void setLicenceNumber(String licenceNumber) {
+			this.licenceNumber = licenceNumber;
+		}
+
+		public String getIssuer() {
+			return issuer;
+		}
+
+		public void setIssuer(String issuer) {
+			this.issuer = issuer;
+		}
+
+		public LocalDate getIssuedDate() {
+			return issuedDate;
+		}
+
+		public void setIssuedDate(LocalDate issuedDate) {
+			this.issuedDate = issuedDate;
+		}
+
+		public LocalDate getValidDate() {
+			return validDate;
+		}
+
+		public void setValidDate(LocalDate validDate) {
+			this.validDate = validDate;
 		}
 	
 }

@@ -112,6 +112,13 @@ public class Driver {
 	    	switch(resp) {
 	    	case("1"):
 	    		((Applicant)cUser).updateEmploymentRecord();
+	    		break;
+	    	case("4"):
+	    		((Applicant)cUser).uploadCv();
+	    		break;
+	    	case("5"):
+	    		((Applicant)cUser).updateDetails();
+	    		break;
 	    	case("6"):
 	    		((Applicant) cUser).updateJobPreferences();
 	    		break;
