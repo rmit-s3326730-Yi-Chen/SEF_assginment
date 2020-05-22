@@ -151,7 +151,7 @@ public class Applicant extends SystemUser{
 				addPastJob();
 				break;
 			case(2):
-				//removePastJob();
+				removePastJob();
 				break;
 			case(3):
 				viewPastJob();
@@ -226,8 +226,46 @@ public class Applicant extends SystemUser{
         }
     }
 	
-	private void removePastJob() {
-		
+	private void removePastJob() {	
+        System.out.println("Please type one of these past jobs to remove\n");
+        int count = 1;
+        for (String pj : pastJobs) {
+            System.out.println(count + ". " + pj.toString());
+            count++; 
+            	System.out.println("*********************");
+        }
+
+        String response = scan.nextLine();
+        if (getPastJobs().contains(response)) {
+	        this.pastJobs.remove(response);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response1 = scan.nextLine();
+        if (getPastJobs().contains(response1)) {
+	        this.pastJobs.remove(response1);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response2 = scan.nextLine();
+        if (getPastJobs().contains(response2)) {
+	        this.pastJobs.remove(response2);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response3 = scan.nextLine();
+        if (getPastJobs().contains(response3)) {
+	        this.pastJobs.remove(response3);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+        String response4= scan.nextLine();
+        if (getPastJobs().contains(response4)) {
+	        this.pastJobs.remove(response4);
+	      } else {
+	        System.out.println("Wrong input");
+	      }
+
 	}
 	
 	private void viewPastJob() {
