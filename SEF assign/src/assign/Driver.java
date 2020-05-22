@@ -27,7 +27,12 @@ public class Driver {
 		users.add(aUser);
 		aUser = new SystemStaff("s2","1");
 		users.add(aUser);
-
+		aComplaint = new Complaint(users.get(0),"this employer is not good",users.get(1));
+		SystemUser.getComplaints().add(aComplaint);
+		((SystemUser) users.get(1)).handleNewComplaint();
+		aComplaint = new Complaint(users.get(0),"this employer is bad",users.get(1));
+		SystemUser.getComplaints().add(aComplaint);
+		((SystemUser) users.get(1)).handleNewComplaint();
 		
 		do {
 			System.out.println("**Student Casual Employment System**");
@@ -287,6 +292,21 @@ public class Driver {
 			return;
 		}
 		System.out.println("Enter the details of the job");
+		System.out.println("Please enter the applicant username");
+		String name = scan.next();
+		scan.nextLine();
+		boolean found = false;
+		for(User u:users) {
+			if(u.getUsername().equals(name)) {
+				tUser = u;
+				found =true;
+				break;
+			}
+		}
+		if(!found) {
+			System.out.println("No such username.");
+			return;
+		}
 		System.out.println("Title: ");
 		title = input.nextLine();
 		System.out.println("Description: ");
@@ -297,7 +317,7 @@ public class Driver {
 		type = input.nextInt();
 		Type offertype = setOfferType(type);
 		String username = cUser.getUsername();
-		JobOffer offer = new JobOffer(title, description, username, wage, offertype);
+		JobOffer offer = new JobOffer(title, description, username, wage, offertype,tUser);
 		offers.add(offer);
 		System.out.println(offer.getJobOffer());
 	}
@@ -306,8 +326,8 @@ public class Driver {
 		for (int i = 0; i < offers.size(); ++i) {
 			JobOffer offer = offers.get(i);
 
-			OfferStatus stat = JobOffer.getStatus();
-			String user = JobOffer.getUsername();
+			OfferStatus stat = offer.getStatus();
+			String user = offer.getUsername();
 			if ((stat.equals(OfferStatus.Available)) && (user.equals(cUser.getUsername()))) {
 				throw new MultipleOfferException(
 						"There is already an 'AVAILABLE' offer created by the Employer " + user);
