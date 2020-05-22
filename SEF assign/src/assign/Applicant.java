@@ -14,11 +14,13 @@ public class Applicant extends SystemUser{
 	private String responsibility;
 	private LocalDate beginDate;
 	private LocalDate endDate;	
+	private String referenceName;
 	private List<String> pastJobs = new ArrayList<>();
 	private List<String> jobPreferences = new ArrayList<>();
 	private static List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
+	private List<String>references = new ArrayList<>();
 
 	  public Applicant(String username, String password,  Status status, Type type) {
 		super(username, password, status);
@@ -157,13 +159,13 @@ public class Applicant extends SystemUser{
 				viewPastJob();
 				break;
 			case(4):
-				//addRreference;
+				addReference();
 				break;
 			case(5):
-				//removeReference;
+				removeReference();
 				break;
 			case(6):
-				//viewReference;
+				viewReference();
 				break;
 			case(0):
 				uer = true;
@@ -280,6 +282,49 @@ public class Applicant extends SystemUser{
         }
 	}
 	
+	private void addReference(){
+        boolean validInput = false;
+
+        while(!validInput) {
+        			try {
+        					System.out.println("What is the reference name?");
+        					referenceName = scan.nextLine();
+
+        					this.references.add(referenceName);
+        					validInput = true;
+
+        					System.out.println("Successfully added a reference");
+        			} catch (InputMismatchException e) {
+        					System.out.println("Invalid input");
+        }
+    }
+	}
+	
+	private void removeReference() {
+	    System.out.println("Please type one of these references to remove\n");
+        for (String r : references) {
+        	System.out.println(r);
+        }
+        System.out.println("\n");
+       String response = scan.nextLine();
+       
+       if(getReferences().contains(response)) {
+    	   this.references.remove(response);
+       }else {
+    	   System.out.println("Wrong input");
+       }
+        
+	}
+	
+	private void viewReference() {
+        System.out.println("Your references are..\n");
+
+        for (String r : references) {
+            System.out.println(r+"\n");
+
+        }
+
+	}
 		public void setJobPreferences(List<String> jobPreferences) {
 		this.jobPreferences = jobPreferences;
 	}
@@ -333,6 +378,22 @@ public class Applicant extends SystemUser{
 		}
 		public void setApplicantEmail(String applicantEmail) {
 			this.applicantEmail = applicantEmail;
+		}
+
+		public List<String> getReferences() {
+			return references;
+		}
+
+		public void setReferences(List<String> references) {
+			this.references = references;
+		}
+
+		public String getReferenceName() {
+			return referenceName;
+		}
+
+		public void setReferenceName(String referenceName) {
+			this.referenceName = referenceName;
 		}
 	
 }
