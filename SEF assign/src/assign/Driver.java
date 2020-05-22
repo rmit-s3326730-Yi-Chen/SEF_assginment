@@ -74,6 +74,12 @@ public class Driver {
 				break;
 			}
 		}
+		if(found) {
+			if(((SystemUser) cUser).getStatus()==Status.Blacklisted) {
+				System.out.println("Your account have been added to blacklist, please contact SystemStaff");
+				return;
+			}
+		}
 		if(!found) {
 			System.out.println("No such username.");
 			return;
