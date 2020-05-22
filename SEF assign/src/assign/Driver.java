@@ -4,7 +4,7 @@ import exception.*;
 public class Driver {
 	static ArrayList<User> users = new ArrayList<>();
 	static ArrayList<JobOffer> offers = new ArrayList<>();
-	static ArrayList<Complaint>complaints = new ArrayList<>();
+	
 	static User cUser = null;// current user;
 	static User tUser = null;// target user;
 	static boolean login = false;// determine login/logout
@@ -110,6 +110,9 @@ public class Driver {
 	    	resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
+	    	case("6"):
+	    		((Applicant) cUser).updateJobPreferences();
+	    		break;
 	    	case("7"):
 	    		try {
 					complaintHandler();
@@ -229,20 +232,21 @@ public class Driver {
 			throw new TargetNotFoundException("Could not find the target with username: " +resp);
 		}
 		if(cUser instanceof Applicant) {
-			if(tUser instanceof Applicant) {
-				throw new WrongTargetTypeException("The target is an applicant as well, you can't complaint: " +resp);
+			if(tUser instanceof Applicant || tUser instanceof SystemStaff) {
+				throw new WrongTargetTypeException("The target SystemStaff or target is an applicant as well, you can't complaint: " +resp);
 			}
 		}
 		if(cUser instanceof Employer) {
-			if(tUser instanceof Employer) {
-				throw new WrongTargetTypeException("The target is an employer as well, you can't complaint: " +resp);
+			if(tUser instanceof Employer ||tUser instanceof SystemStaff) {
+				throw new WrongTargetTypeException("The target can't be a SystemStaff or target is an employer as well, you can't complaint: " +resp);
 			}
 		}
 		System.out.println("Please enter complaint description");
 		String description = scan.nextLine();
 		aComplaint = new Complaint(cUser,description,tUser);
-		complaints.add(aComplaint);
+		SystemStaff.getComplaints().add(aComplaint);
 		System.out.println("you have create the complaint");
+		((SystemUser) tUser).handleNewComplaint();
 		
 	}
 	
