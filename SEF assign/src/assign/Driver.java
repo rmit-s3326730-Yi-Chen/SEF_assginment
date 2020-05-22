@@ -110,6 +110,8 @@ public class Driver {
 	    	resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
+	    	case("1"):
+	    		((Applicant)cUser).updateEmploymentRecord();
 	    	case("6"):
 	    		((Applicant) cUser).updateJobPreferences();
 	    		break;

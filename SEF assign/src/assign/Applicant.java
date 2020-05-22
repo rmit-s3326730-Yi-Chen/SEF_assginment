@@ -2,6 +2,7 @@ package assign;
 import java.time.LocalDate;
 import java.util.*;
 import assign.JobCategory;
+
 public class Applicant extends SystemUser{
 	private Type type;
 	Scanner scan = new Scanner(System.in);
@@ -9,10 +10,12 @@ public class Applicant extends SystemUser{
 	private String applicantEmail;
 	private Status status;
 	private String companyName;
-	private String jobName;
-	private String jobResponsibility;
+	private String title;
+	private String responsibility;
 	private LocalDate beginDate;
-	private LocalDate endDate;
+	private LocalDate endDate;	
+	private List<String> pastJobs = new ArrayList<>();
+	private List<String> jobPreferences = new ArrayList<>();
 	private static List<String> jobCategories = new ArrayList<>(
             Arrays.asList("Engineer","Teacher","Nurse","Librarian")
     );
@@ -22,18 +25,6 @@ public class Applicant extends SystemUser{
 		this.type = type;
 	}
 
-	private List<String> jobPreferences = new ArrayList<>();
-	  
-	public List<String> getJobPreferences() {
-		return jobPreferences;
-	}
-
-	public String getApplicantEmail() {
-		return applicantEmail;
-	}
-	public void setApplicantEmail(String applicantEmail) {
-		this.applicantEmail = applicantEmail;
-	}
 	public Applicant(String username, String password, Status status, String applicantEmail) {
 		super(username, password, status);
 		this.applicantEmail = applicantEmail;
@@ -66,8 +57,7 @@ public class Applicant extends SystemUser{
 	}
 	
 	public boolean handleComplaint() {
-		return false;
-		
+		return false;	
 	}
 	public boolean handleInterview() {
 		return false;
@@ -75,7 +65,7 @@ public class Applicant extends SystemUser{
 	public boolean handleOffer() {
 		return false;
 	}
-	
+
 	public void updateJobPreferences() {
 	    boolean goBack = false;
 	    while (!goBack) {
@@ -141,14 +131,117 @@ public class Applicant extends SystemUser{
         }
 	}
 	
-	//employment record
-//		private List<String> pastJob = new ArrayList<>(
-//	            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
-//	    );
-//		public List<String> getPastJob() {
-//			return pastJob;
-//		}
+// update employment record
+	public void updateEmploymentRecord() {
+		boolean uer = false;
+		while(!uer) {
+			try {
+			System.out.printf("Please update your employment record:\n"
+													+ "1. Add a past Job\n"
+													+ "2. Remove a past Job\n"
+													+ "3. View past Jobs\n"
+													+ "4. Add a Reference\n"
+													+ "5. Remove a Reference\n"
+													+ "6. View References\n"
+													+ "0. Go Back\n");
+			int rep = scan.nextInt();
+			scan.nextLine();
+			switch(rep) {
+			case(1):
+				addPastJob();
+				break;
+			case(2):
+				//removePastJob();
+				break;
+			case(3):
+				viewPastJob();
+				break;
+			case(4):
+				//addRreference;
+				break;
+			case(5):
+				//removeReference;
+				break;
+			case(6):
+				//viewReference;
+				break;
+			case(0):
+				uer = true;
+				break;
+			
+			}
+			}catch(InputMismatchException e) {
+	            System.out.println("Invalid input!");
+	   
+	        }
+			
+		}
+	}
+	  
+    private void addPastJob() {
+        boolean validInput = false;
+
+        while(!validInput)
+        {
+            try
+            {
+                System.out.println("For what company?");
+                companyName = scan.nextLine();
+
+                System.out.println("What was your title?");
+                title = scan.nextLine();
+
+                System.out.println("When did you start? (Format: DD-MM-YYYY)");
+                String startDateStr = scan.nextLine();
+                Scanner s = new Scanner(startDateStr).useDelimiter("-");
+                int day = s.nextInt();
+                int month = s.nextInt();
+                int year = s.nextInt();
+                beginDate = LocalDate.of(year,month,day);
+
+                System.out.println("When did you end? (Format: DD-MM-YYYY)");
+                String endDateStr = scan.nextLine();
+                Scanner s2 = new Scanner(endDateStr).useDelimiter("-");
+                int day2 = s2.nextInt();
+                int month2 = s2.nextInt();
+                int year2 = s2.nextInt();
+                endDate = LocalDate.of(year2,month2,day2);
+
+                System.out.println("What where your responsibilities?");
+                responsibility = scan.nextLine();
+     
+               this.pastJobs.add(companyName);
+               this.pastJobs.add(title);
+               this.pastJobs.add(startDateStr);
+               this.pastJobs.add(endDateStr);
+               this.pastJobs.add(responsibility);
+               
+                validInput = true;
+                System.out.println("Successfully added past job");
+            }
+            catch (InputMismatchException e)
+            {
+               System.out.println("Invalid Input");
+            }
+        }
+    }
+	
+	private void removePastJob() {
 		
+	}
+	
+	private void viewPastJob() {
+        System.out.println("Your past job are..\n");
+        int count = 1;
+        for (String pj : pastJobs) {
+            System.out.println(count + ". " + pj.toString());
+            count++; 
+            if((count-6)%5==0) {
+            	System.out.println("*********************");
+            }         
+        }
+	}
+	
 		public void setJobPreferences(List<String> jobPreferences) {
 		this.jobPreferences = jobPreferences;
 	}
@@ -169,21 +262,18 @@ public class Applicant extends SystemUser{
 		public void setCompanyName(String companyName) {
 			this.companyName = companyName;
 		}
-		public String getJobName() {
-			return jobName;
-		}
-		public void setJobName(String jobName) {
-			this.jobName = jobName;
-		}
-		public String getJobResponsibility() {
-			return jobResponsibility;
-		}
-		public void setJobResponsibility(String jobResponsibility) {
-			this.jobResponsibility = jobResponsibility;
-		}
+
 		public LocalDate getBeginDate() {
 			return beginDate;
 		}
+		public String getResponsibility() {
+			return responsibility;
+		}
+
+		public void setResponsibility(String responsibility) {
+			this.responsibility = responsibility;
+		}
+
 		public void setBeginDate(LocalDate beginDate) {
 			this.beginDate = beginDate;
 		}
@@ -193,7 +283,18 @@ public class Applicant extends SystemUser{
 		public void setEndDate(LocalDate endDate) {
 			this.endDate = endDate;
 		}
-		
-		
+		public List<String> getPastJobs() {
+			return pastJobs;
+		}
+		public List<String> getJobPreferences() {
+			return jobPreferences;
+		}
+
+		public String getApplicantEmail() {
+			return applicantEmail;
+		}
+		public void setApplicantEmail(String applicantEmail) {
+			this.applicantEmail = applicantEmail;
+		}
 	
 }
