@@ -3,23 +3,21 @@ package assign;
 import java.util.ArrayList;
 
 public class JobOffer {
-	private  Type OfferType;
-	private  String Title;
+	private String Title;
 	private String Username;
 	private String Description;
 	private double Wage;
 	private OfferStatus Status;
-	private User tUser;
+	private String tUser;
 	private ArrayList<JobOffer> offers = new ArrayList<>();
 
-	public JobOffer(String Title, String Description, String Username, Double Wage, Type OfferType, User tUser) {
+	public JobOffer(String Title, String Description, String Username, Double Wage, OfferStatus Status, String tUser) {
 		this.Title = Title;
 		this.Description = Description;
 		this.Username = Username;
 		this.Wage = Wage;
-		this.OfferType = OfferType;
-		this.tUser = tUser;
 		this.Status = OfferStatus.Available;
+		this.tUser = tUser;
 	}
 
 	public String getTitle() {
@@ -37,7 +35,7 @@ public class JobOffer {
 	public void setDescription(String Description) {
 		this.Description = Description;
 	}
-	
+
 	public String getUsername() {
 		return Username;
 	}
@@ -54,14 +52,6 @@ public class JobOffer {
 		return Wage;
 	}
 
-	public void setOfferType(Type OfferType) {
-		this.OfferType = OfferType;
-	}
-
-	public Type getOfferType() {
-		return OfferType;
-	}
-
 	public OfferStatus getStatus() {
 		return Status;
 	}
@@ -69,7 +59,12 @@ public class JobOffer {
 	public void setStatus(OfferStatus Status) {
 		this.Status = Status;
 	}
-	public User getUser() {
+
+	public void setUser(String tUser) {
+		this.tUser = tUser;
+	}
+
+	public String getUser() {
 		return tUser;
 	}
 
@@ -79,10 +74,8 @@ public class JobOffer {
 		print = print + "Description: " + Description + "\n";
 		print = print + "Creator: " + Username + "\n";
 		print = print + "Wage per hour: " + Wage + "\n";
-		print = print + "Type of Applicant: " + OfferType + "\n";
 		print = print + "Status: " + Status + "\n";
+		print = print + "Job request to: " + tUser + "\n";
 		return print;
-
 	}
-
 }
