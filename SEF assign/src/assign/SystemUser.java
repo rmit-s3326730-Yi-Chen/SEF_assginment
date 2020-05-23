@@ -7,6 +7,7 @@ public class SystemUser extends User{
 	private int complaintCount;
 	private static ArrayList<Complaint>complaints = new ArrayList<>();
 	
+	
 	public SystemUser(String username, String password, Status status ) {
 		super(username, password);
 		this.status = Status.Available;

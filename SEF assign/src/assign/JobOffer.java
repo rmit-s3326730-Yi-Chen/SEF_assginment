@@ -3,20 +3,22 @@ package assign;
 import java.util.ArrayList;
 
 public class JobOffer {
-	private static Type OfferType;
-	private static String Title;
-	private static String Username;
-	private static String Description;
-	private static double Wage;
-	private static OfferStatus Status;
+	private  Type OfferType;
+	private  String Title;
+	private String Username;
+	private String Description;
+	private double Wage;
+	private OfferStatus Status;
+	private User tUser;
 	private ArrayList<JobOffer> offers = new ArrayList<>();
 
-	public JobOffer(String Title, String Description, String Username, Double Wage, Type OfferType) {
+	public JobOffer(String Title, String Description, String Username, Double Wage, Type OfferType, User tUser) {
 		this.Title = Title;
 		this.Description = Description;
 		this.Username = Username;
 		this.Wage = Wage;
 		this.OfferType = OfferType;
+		this.tUser = tUser;
 		this.Status = OfferStatus.Available;
 	}
 
@@ -36,7 +38,7 @@ public class JobOffer {
 		this.Description = Description;
 	}
 	
-	public static String getUsername() {
+	public String getUsername() {
 		return Username;
 	}
 
@@ -60,15 +62,18 @@ public class JobOffer {
 		return OfferType;
 	}
 
-	public static OfferStatus getStatus() {
+	public OfferStatus getStatus() {
 		return Status;
 	}
 
 	public void setStatus(OfferStatus Status) {
 		this.Status = Status;
 	}
+	public User getUser() {
+		return tUser;
+	}
 
-	public static String getJobOffer() {
+	public String getJobOffer() {
 		String print = "\n";
 		print = print + "Title: " + Title + "\n";
 		print = print + "Description: " + Description + "\n";
