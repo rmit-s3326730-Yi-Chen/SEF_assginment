@@ -124,19 +124,16 @@ public class Driver {
 	    	case("1"):
 	    		((Applicant)cUser).updateEmploymentRecord();
 	    		break;
-<<<<<<< .merge_file_a19904
+	    	case("2"):
+	    		break;
+	    	case("3"):
+	    		viewOffer();
+	    		break;
 	    	case("4"):
 	    		((Applicant)cUser).uploadCv();
 	    		break;
 	    	case("5"):
 	    		((Applicant)cUser).updateDetails();
-=======
-	    	case("2"):
-	    		break;
-	    	case("3"):
-	    		viewOffer();
->>>>>>> .merge_file_a08248
-	    		break;
 	    	case("6"):
 	    		((Applicant) cUser).updateJobPreferences();
 	    		break;

@@ -14,8 +14,7 @@ import java.util.Scanner;
 public class Applicant extends SystemUser{
 	private Type type;
 	Scanner scan = new Scanner(System.in);
-//	private Availability availability;
-	private String applicantEmail;
+	public String applicantEmail;
 	private Status status;
 	private String companyName;
 	private String title;
@@ -53,11 +52,6 @@ public class Applicant extends SystemUser{
 		super(username, password, status);
 		this.type = type;
 
-	}
-
-	public Applicant(String username, String password, Status status, String applicantEmail) {
-		super(username, password, status);
-		this.applicantEmail = applicantEmail;
 	}
 	
 	public boolean setType(int typeChecker) {
@@ -871,13 +865,6 @@ public class Applicant extends SystemUser{
 
 		public void setAvailabilities(List<String> availabilities) {
 			this.availabilities = availabilities;
-		}
-
-		public String getApplicantEmail() {
-			return applicantEmail;
-		}
-		public void setApplicantEmail(String applicantEmail) {
-			this.applicantEmail = applicantEmail;
 		}
 
 		public List<String> getReferences() {
