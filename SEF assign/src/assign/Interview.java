@@ -8,15 +8,17 @@ public class Interview {
 	private String Description;
 	private String Venue;
 	private String Time;
+	private String Username;
 	private String Result;
 	private ArrayList<Interview> interviews = new ArrayList<Interview>();
 
-	public Interview(String User, String Title, String Description, String Venue, String Time) {
+	public Interview(String User, String Title, String Description, String Venue, String Time, String Username) {
 		this.User = User;
 		this.Title = Title;
 		this.Description = Description;
 		this.Venue = Venue;
 		this.Time = Time;
+		this.Username = Username;
 	}
 
 	public String getUser() {
@@ -58,6 +60,14 @@ public class Interview {
 	public String getTime() {
 		return Time;
 	}
+	
+	public String getUsername() {
+		return Username;
+	}
+
+	public void setUsername(String Username) {
+		this.Username = Username;
+	}
 
 	public void setResult(String Result) {
 		this.Result = Result;
@@ -69,12 +79,13 @@ public class Interview {
 
 	public String getInterview() {
 		String print = "\n";
-		print = "The Interview Details are: ";
+		print = "The Interview Details are: \n";
 		print = print + "Applicant Username: " + User + "\n";
 		print = print + "Title: " + Title + "\n";
 		print = print + "Description: " + Description + "\n";
 		print = print + "Venue: " + Venue + "\n";
 		print = print + "Time: " + Time + "\n";
+		print = print + "Creator: " + Username + "\n";
 		return print;
 	}
 
