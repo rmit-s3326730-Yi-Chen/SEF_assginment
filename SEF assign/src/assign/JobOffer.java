@@ -1,6 +1,5 @@
 package assign;
 
-import java.util.ArrayList;
 
 public class JobOffer {
 	private String Title;
@@ -9,14 +8,13 @@ public class JobOffer {
 	private double Wage;
 	private OfferStatus Status;
 	private String tUser;
-	private ArrayList<JobOffer> offers = new ArrayList<>();
 
 	public JobOffer(String Title, String Description, String Username, Double Wage, OfferStatus Status, String tUser) {
 		this.Title = Title;
 		this.Description = Description;
 		this.Username = Username;
 		this.Wage = Wage;
-		this.Status = OfferStatus.Available;
+		this.Status = OfferStatus.Pending;
 		this.tUser = tUser;
 	}
 

@@ -1,6 +1,8 @@
 package assign;
 
 public enum OfferStatus {
-	Available,
-	Pending
+	Pending,
+	Accepted,
+	Denied;
+	
 }

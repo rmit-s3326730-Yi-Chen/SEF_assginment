@@ -9,13 +9,6 @@ public class JobCategory {
 	private String jobName;
 	private String jobDescription;
 
-//	public void setJobCategories(List<String> jobCategories) {
-//		this.jobCategories = jobCategories;
-//	}
-	
-//	public List<String> getJobCategories() {
-//		return jobCategories;
-//	}
 
 	public String getJobName() {
 		return jobName;

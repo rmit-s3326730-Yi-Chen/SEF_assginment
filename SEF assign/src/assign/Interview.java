@@ -1,6 +1,5 @@
 package assign;
 
-import java.util.ArrayList;
 
 public class Interview {
 	private String Title;
@@ -10,7 +9,7 @@ public class Interview {
 	private String Time;
 	private String Username;
 	private String Result;
-	private ArrayList<Interview> interviews = new ArrayList<Interview>();
+
 
 	public Interview(String User, String Title, String Description, String Venue, String Time, String Username) {
 		this.User = User;

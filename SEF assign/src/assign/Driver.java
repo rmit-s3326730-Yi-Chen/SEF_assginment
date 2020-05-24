@@ -3,7 +3,6 @@ import java.util.*;
 import exception.*;
 public class Driver {
 	static ArrayList<User> users = new ArrayList<>();
-	static ArrayList<JobOffer> offers = Employer.getOfferArrayList();
 	
 	static User cUser = null;// current user;
 	static User tUser = null;// target user;
@@ -80,9 +79,11 @@ public class Driver {
 			}
 		}
 		if(found) {
-			if(((SystemUser) cUser).getStatus()==Status.Blacklisted) {
-				System.out.println("Your account have been added to blacklist, please contact SystemStaff");
-				return;
+			if(cUser instanceof SystemUser) {
+				if(((SystemUser) cUser).getStatus()==Status.Blacklisted) {
+					System.out.println("Your account have been added to blacklist, please contact SystemStaff");
+					return;
+				}
 			}
 		}
 		if(!found) {
@@ -109,6 +110,7 @@ public class Driver {
 		if(cUser instanceof Applicant) {
 			System.out.println("Welcome to Applicant System");
 			System.out.println("**Applicant Menu**");
+			System.out.println("0. Manage offer");
 			System.out.println("1. Update Employment Records");
 			System.out.println("2. View interview");
 			System.out.println("3. View offer"); //view offer and can make a choice to accept or reject offer, or just view and do not handle it 
@@ -121,13 +123,17 @@ public class Driver {
 	    	resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
+	    	case("0"):
+	    		((Applicant)cUser).manageOffer();
+	    		break;
 	    	case("1"):
 	    		((Applicant)cUser).updateEmploymentRecord();
 	    		break;
 	    	case("2"):
+	    		((Applicant)cUser).viewInterview();
 	    		break;
 	    	case("3"):
-	    		viewOffer();
+	    		((Applicant)cUser).viewOffer();
 	    		break;
 	    	case("4"):
 	    		((Applicant)cUser).uploadCv();
@@ -172,7 +178,7 @@ public class Driver {
 					((Employer) cUser).setInterview(); // Create interview
 					break;
 				case (4):
-					((Employer) cUser).interviewResult(); // Interview outcome
+//					((Employer) cUser).interviewResult(); // Interview outcome
 					break;
 				case (5):
 					try {
@@ -201,6 +207,9 @@ public class Driver {
 	    	resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
+	    	case("1"):
+	    		((SystemStaff) cUser).viewBlacklist();
+	    	break;
 	    	case("3"):
 	    		logout();
 	    		break;
@@ -273,7 +282,7 @@ public class Driver {
 	}
 	
 	public static void viewOffer() {
-		for (JobOffer o : offers) {
+		for (JobOffer o : Employer.offers) {
 			if (o.getUser().equals(cUser.getUsername())) {
 				System.out.println(o.getJobOffer());
 			}

@@ -43,9 +43,7 @@ public class Applicant extends SystemUser{
 	private List<String>licences = new ArrayList<>();
 	private List<String>qualifications = new ArrayList<>();
 	private List<String> availabilities = new ArrayList<>(Arrays.asList("part time","full time","internship"));
-	private static List<String> jobCategories = new ArrayList<>(
-            Arrays.asList("Engineer","Teacher","Nurse","Librarian")
-    );
+	private static List<JobCategory> jobCategories = new ArrayList<>();
 	private List<String>references = new ArrayList<>();
 
 	  public Applicant(String username, String password,  Status status, Type type) {
@@ -123,17 +121,23 @@ public class Applicant extends SystemUser{
 	
 	private void addJobPreference(){
 		System.out.println("Please type one of these job preferences to add to your selected preferences\n");
-	    for (String jc :  getJobCategories()) {
-	        System.out.println(jc);
+	    for (JobCategory jc :  getJobCategories()) {
+	        System.out.println(jc.getJobName());
 	    }
 	    String response = scan.nextLine();
-
-	    if (getJobCategories().contains(response)) {
-	        this.jobPreferences.add(response);
-	      } else {
-	        System.out.println("Wrong input");
-	        
-	      }
+	    boolean found = false;
+	    for (JobCategory jc :  getJobCategories()) {
+	    	if (jc.getJobName().equals(response)) {
+		        this.jobPreferences.add(response);
+		        return;
+		      } 
+	    	
+	    }
+	    if(!found) {
+	    	System.out.println("Wrong Input");
+	    	return;
+	    }
+	    
 	}
 	private void removeJobPreference() {
 	    System.out.println("Please type one of your job preferences you want to remove \n");
@@ -815,16 +819,11 @@ public class Applicant extends SystemUser{
 		this.jobPreferences = jobPreferences;
 	}
 
-		public List<String> getJobCategories() {
+		public static List<JobCategory> getJobCategories() {
 		return jobCategories;
 	}
 
-	public void setJobCategories(List<String> jobCategories) {
-		this.jobCategories = jobCategories;
-	}
-	public void addJobCategory(String jobCategory) {
-        jobCategories.add(jobCategory.toUpperCase());
-    }
+
 		public String getCompanyName() {
 			return companyName;
 		}
@@ -1025,6 +1024,58 @@ public class Applicant extends SystemUser{
 
 		public void setSuitableJob(String suitableJob) {
 			this.suitableJob = suitableJob;
+		}
+
+		public void viewInterview() {
+			for (Interview o : Employer.interviews) {
+				if (o.getUser().equals(this.getUsername())) {
+					System.out.println(o.getInterview());
+				}
+			}
+			
+		}
+
+		public void viewOffer() {
+			for (JobOffer o : Employer.offers) {
+				if (o.getUser().equals(this.getUsername())) {
+					System.out.println(o.getJobOffer());
+				}
+			}
+			
+		}
+
+		public void manageOffer() {
+			viewOffer();
+			System.out.println("Please enter the offer title you want to manage");
+			String title = scan.next();
+			scan.nextLine();
+			for(JobOffer o:Employer.getOfferArrayList()) {
+				if(o.getTitle().equals(title)) {
+					if(o.getStatus()==OfferStatus.Pending) {
+						System.out.println("Please enter 1 for accept, 2 for deny");
+						String input = scan.next();
+						scan.nextLine();
+						switch(input) {
+						case("1"):
+							o.setStatus(OfferStatus.Accepted);
+							break;
+						case("2"):
+							o.setStatus(OfferStatus.Denied);
+							break;
+						default:
+							System.out.println("Sorry, Wrong input");
+						}
+						return;
+						
+					}
+					else {
+						System.out.println("not pending offer need to be managed");
+						return;
+					}
+				}
+			}
+			System.out.println("Sorry, no matched offer");
+			
 		}
 
 

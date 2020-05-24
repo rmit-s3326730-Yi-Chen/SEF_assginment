@@ -22,7 +22,7 @@ public class Employer extends SystemUser {
 		return print;
 	}
 	
-	public static void createOffer() {
+	public void createOffer() {
 		String Title;
 		String Description;
 		double Wage;
@@ -61,25 +61,25 @@ public class Employer extends SystemUser {
 		System.out.println("Wage per hour: ");
 		Wage = input.nextDouble();
 		String Username = Driver.getcUser();
-		OfferStatus Status = null;
+		OfferStatus Status = OfferStatus.Pending;
 		JobOffer offer = new JobOffer(Title, Description, Username, Wage, Status, User);
 		offers.add(offer);
 		System.out.println(offer.getJobOffer());
 	}
 
-	private static void offerHandle(String name) throws MultipleOfferException {
+	private void offerHandle(String name) throws MultipleOfferException {
 		for (int i = 0; i < offers.size(); ++i) {
 			JobOffer offer = offers.get(i);
 			OfferStatus stat = offer.getStatus();
 			String user = offer.getUser();
-			if ((stat.equals(OfferStatus.Available)) && (user.equals(name))) {
+			if ((stat.equals(OfferStatus.Pending)) && (user.equals(name))) {
 				throw new MultipleOfferException(
-						"There is already an 'AVAILABLE' offer created by the Employer for the applicant " + user);
+						"There is already an 'Pending' offer created by the Employer for the applicant " + user);
 			}
 		}
 	}
 
-	public static void searchApplicant() {
+	public void searchApplicant() {
 		int Select;
 		int applicantType;
 		int applicantStatus;
@@ -137,14 +137,14 @@ public class Employer extends SystemUser {
 		}
 	}
 
-	public static void searchHandle(int value) throws NoApplicantException {
+	public void searchHandle(int value) throws NoApplicantException {
 		if (value == 0) {
 			throw new NoApplicantException(
 					"There no Applicant available for the search applied ");
 		}
 	}
 
-	public static void setInterview() {
+	public  void setInterview() {
 		String Name;
 		String Title;
 		String Description;
