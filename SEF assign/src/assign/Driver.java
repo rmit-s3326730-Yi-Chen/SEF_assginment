@@ -3,8 +3,7 @@ import java.util.*;
 import exception.*;
 public class Driver {
 	static ArrayList<User> users = new ArrayList<>();
-	static ArrayList<JobOffer> offers = new ArrayList<>();
-	static ArrayList<Interview> interviews = new ArrayList<Interview>();
+	static ArrayList<JobOffer> offers = Employer.getOfferArrayList();
 	
 	static User cUser = null;// current user;
 	static User tUser = null;// target user;
@@ -36,12 +35,12 @@ public class Driver {
 		((SystemUser) users.get(1)).handleNewComplaint();
 		
 		do {
-			System.out.println("**Student Casual Employment System**");
+			System.out.println(" **Student Casual Employment System** ");
 	       	System.out.println("1. Log in");
 	       	System.out.println("2. Register as applicant");
 	       	System.out.println("3. Register as employer");
 	       	System.out.println("4. Quit");
-	    	System.out.println("Please Enter Your Choice:");
+	    	System.out.println("Please Enter Your Choice: ");
 	    	resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
@@ -69,7 +68,7 @@ public class Driver {
 	}
 
 	public static void login() {
-		System.out.println("Please enter your username:");
+		System.out.println("Please enter your username: ");
 		String username = scan.next();
 		scan.nextLine();
 		boolean found = false;
@@ -87,7 +86,7 @@ public class Driver {
 			}
 		}
 		if(!found) {
-			System.out.println("No such username.");
+			System.out.println("No such username");
 			return;
 		}
 		System.out.println("Please enter password:");
@@ -160,21 +159,20 @@ public class Driver {
 			try {
 				int choose = employerMenu();
 				switch (choose) {
-
 				case (6):
 					logout();
 					break;
 				case (1):
-					createOffer(); // Create offer
+					((Employer) cUser).createOffer(); // Create offer
 					break;
 				case (2):
-					searchApplicant(); // Search and View applicant
+					((Employer) cUser).searchApplicant(); // Search and View applicant
 					break;
 				case (3):
-					setInterview(); // Create interview
+					((Employer) cUser).setInterview(); // Create interview
 					break;
 				case (4):
-					interviewResult(); // Interview outcome
+					((Employer) cUser).interviewResult(); // Interview outcome
 					break;
 				case (5):
 					try {
@@ -269,20 +267,20 @@ public class Driver {
 		String description = scan.nextLine();
 		aComplaint = new Complaint(cUser,description,tUser);
 		SystemUser.getComplaints().add(aComplaint);
-		System.out.println("you have create the complaint");
+		System.out.println("you have created the complaint");
 		((SystemUser) tUser).handleNewComplaint();
 		
 	}
 	
 	public static void viewOffer() {
-		for(JobOffer o:offers) {
-			if(o.getUser().equals(cUser)) {
+		for (JobOffer o : offers) {
+			if (o.getUser().equals(cUser.getUsername())) {
 				System.out.println(o.getJobOffer());
 			}
 		}
-		
+
 	}
-	
+
 	private static int employerMenu() {
 		int opt;
 		Scanner scan = new Scanner(System.in);
@@ -300,173 +298,12 @@ public class Driver {
 		return opt;
 	}
 
-	private static void createOffer() {
-		String Title;
-		String Description;
-		double Wage;
-		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the details of the job");
-		System.out.println("Please enter the applicant username");
-		String Name = scan.next();
-		scan.nextLine();
-
-		try {
-			offerHandle(Name);
-		} catch (MultipleOfferException e) {
-			System.err.println(e);
-			return;
-		}
-
-		String User = null;
-		boolean found = false;
-		for (User u : users) {
-			for (int i = 0; i < users.size(); ++i) {
-				u = users.get(i);
-				if (u instanceof Applicant) {
-					if (u.getUsername().equals(Name)) {
-						User = u.getUsername();
-						found = true;
-						break;
-					}
-				}
-			}
-		}
-		if (!found) {
-			System.out.println("Invalid applicant username");
-			return;
-		}
-
-		System.out.println("Title: ");
-		Title = input.nextLine();
-		System.out.println("Description: ");
-		Description = input.nextLine();
-		System.out.println("Wage per hour: ");
-		Wage = input.nextDouble();
-		String username = cUser.getUsername();
-		OfferStatus Status = null;
-		JobOffer offer = new JobOffer(Title, Description, username, Wage, Status, User);
-		offers.add(offer);
-		System.out.println(offer.getJobOffer());
-	}
-
-	private static void offerHandle(String name) throws MultipleOfferException {
-		for (int i = 0; i < offers.size(); ++i) {
-			JobOffer offer = offers.get(i);
-			OfferStatus stat = offer.getStatus();
-			String user = offer.getUser();
-			if ((stat.equals(OfferStatus.Available)) && (user.equals(name))) {
-				throw new MultipleOfferException(
-						"There is already an 'AVAILABLE' offer created by the Employer for the applicant " + user);
-			}
-		}
-	}
-
-	private static void searchApplicant() {
-		int Select;
-		int applicantType;
-		int applicantStatus;
-		int count = 0;
-		Scanner input = new Scanner(System.in);
-		do {
-			System.out.println("Search and View Applicants: 1. By Type 2. By Availability");
-			Select = input.nextInt();
-		} while (!(Select == 1 || Select == 2));
-
-		if (Select == 1) {
-
-			do {
-				System.out.println("Enter the appplicant type searching for 0. Local 1. International ");
-				applicantType = input.nextInt();
-			} while (!(applicantType == 0 || applicantType == 1));
-
-			Type appType;
-			if (applicantType == 0) {
-				appType = Type.Local;
-			} else {
-				appType = Type.International;
-			}
-
-			for (int i = 0; i < users.size(); ++i) {
-				User user = users.get(i);
-				if (user instanceof Applicant) {
-					Type app = ((Applicant) user).getType();
-					if (app.equals(appType)) {
-						System.out.println(user.getDetails());
-						count++;
-					}
-				}
-			}
-		} else {
-			System.out.println("Searching and viewing the applicants with status 'AVAILABLE'");
-			for (int i = 0; i < users.size(); ++i) {
-				User user = users.get(i);
-				if (user instanceof Applicant) {
-					Status stat = ((SystemUser) user).getStatus();
-					if (stat.equals(Status.Available)) {
-						System.out.println(user.getDetails());
-						count++;
-					}
-				}
-			}
-		}
-
-		if (count == 0) {
-			try {
-				searchHandle(count);
-			} catch (NoApplicantException e) {
-				System.err.println(e);
-				return;
-			}
-		}
-	}
-
-	public static void searchHandle(int value) throws NoApplicantException {
-		if (value == 0) {
-			throw new NoApplicantException(
-					"There no Applicant available for the search applied " + cUser.getUsername());
-		}
-	}
-
-	private static void setInterview() {
-		String Name;
-		String Title;
-		String Description;
-		String Venue;
-		String Time;
-		Scanner input = new Scanner(System.in);
-		System.out.println("Please enter the applicant username for Interview");
-		Name = scan.next();
-		scan.nextLine();
-		boolean found = false;
-		String User = null;
-		for (JobOffer j : offers) {
-			for (int i = 0; i < offers.size(); ++i) {
-				j = offers.get(i);
-				if ((j.getUsername().equals(cUser.getUsername()) && (j.getUser().equals(Name)))) {
-					User = j.getUser();
-					found = true;
-					break;
-				}
-			}
-		}
-		if (!found) {
-			System.out.println("No offer for that Applicant User");
-			return;
-		}
-
-		System.out.println("Title: ");
-		Title = input.nextLine();
-		System.out.println("Description: ");
-		Description = input.nextLine();
-		System.out.println("Venue: ");
-		Venue = input.nextLine();
-		System.out.println("Time: ");
-		Time = input.nextLine();
-		Interview interview = new Interview(User, Title, Description, Venue, Time);
-		interviews.add(interview);
-		System.out.println(interview.getInterview());
+	public static ArrayList<User> getUsersArrayList() {
+		return users;
 	}
 	
-	private static void interviewResult() {
+	public static String getcUser() {
+		String emp= cUser.getUsername();
+		return emp;
 	}
 }
