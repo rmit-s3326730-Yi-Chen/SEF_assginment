@@ -202,15 +202,22 @@ public class Driver {
 			System.out.println("**Staff Menu**");
 			System.out.println("1. View blacklist");
 			System.out.println("2. Add Job Categories");
-			System.out.println("3. Log out");
+			System.out.println("3. Manage blacklist");
+			System.out.println("4. Log out");
 	    	System.out.println("Please Enter Your Choice:");
 	    	resp = scan.next();
 	    	scan.nextLine();
 	    	switch(resp) {
 	    	case("1"):
 	    		((SystemStaff) cUser).viewBlacklist();
-	    	break;
+	    		break;
+	    	case("2"):
+	    		((SystemStaff) cUser).addJobCategory();
+	    		break;
 	    	case("3"):
+	    		((SystemStaff) cUser).manageBlacklist();
+	    		break;
+	    	case("4"):
 	    		logout();
 	    		break;
 	    	default:
