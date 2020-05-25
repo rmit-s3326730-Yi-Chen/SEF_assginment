@@ -288,14 +288,7 @@ public class Driver {
 		
 	}
 	
-	public static void viewOffer() {
-		for (JobOffer o : Employer.offers) {
-			if (o.getUser().equals(cUser.getUsername())) {
-				System.out.println(o.getJobOffer());
-			}
-		}
 
-	}
 
 	private static int employerMenu() {
 		int opt;
