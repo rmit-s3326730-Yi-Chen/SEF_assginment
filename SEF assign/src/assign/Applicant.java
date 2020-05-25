@@ -1046,11 +1046,11 @@ public class Applicant extends SystemUser{
 
 		public void manageOffer() {
 			viewOffer();
-			System.out.println("Please enter the offer title you want to manage");
-			String title = scan.next();
+			System.out.println("Please enter the offer ID you want to manage");
+			String ID = scan.next();
 			scan.nextLine();
 			for(JobOffer o:Employer.getOfferArrayList()) {
-				if(o.getTitle().equals(title)) {
+				if(o.getID().equals(ID)) {
 					if(o.getStatus()==OfferStatus.Pending) {
 						System.out.println("Please enter 1 for accept, 2 for deny");
 						String input = scan.next();

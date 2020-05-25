@@ -8,6 +8,8 @@ public class JobOffer {
 	private double Wage;
 	private OfferStatus Status;
 	private String tUser;
+	private static int jobCount =1;
+	private String ID;
 
 	public JobOffer(String Title, String Description, String Username, Double Wage, OfferStatus Status, String tUser) {
 		this.Title = Title;
@@ -16,10 +18,18 @@ public class JobOffer {
 		this.Wage = Wage;
 		this.Status = OfferStatus.Pending;
 		this.tUser = tUser;
+		this.setID("job"+jobCount);
+		jobCount++;
 	}
 
 	public String getTitle() {
 		return Title;
+	}
+	public void setID(String ID) {
+		this.ID=ID;
+	}
+	public String getID() {
+		return ID;
 	}
 
 	public void setTitle(String Title) {
@@ -68,6 +78,7 @@ public class JobOffer {
 
 	public String getJobOffer() {
 		String print = "\n";
+		print = print + "ID: " +ID +"\n";
 		print = print + "Title: " + Title + "\n";
 		print = print + "Description: " + Description + "\n";
 		print = print + "Creator: " + Username + "\n";
