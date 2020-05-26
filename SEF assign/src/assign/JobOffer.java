@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class JobOffer implements Serializable {
 	private String Title;
-	private String Username;
 	private String Description;
 	private double Wage;
 	private OfferStatus Status;
@@ -12,10 +11,9 @@ public class JobOffer implements Serializable {
 	private static int jobCount =1;
 	private String ID;
 
-	public JobOffer(String Title, String Description, String Username, Double Wage, OfferStatus Status, String tUser) {
+	public JobOffer(String Title, String Description, Double Wage, OfferStatus Status, String tUser) {
 		this.Title = Title;
 		this.Description = Description;
-		this.Username = Username;
 		this.Wage = Wage;
 		this.Status = OfferStatus.Pending;
 		this.tUser = tUser;
@@ -45,13 +43,6 @@ public class JobOffer implements Serializable {
 		this.Description = Description;
 	}
 
-	public String getUsername() {
-		return Username;
-	}
-
-	public void setUsername(String Username) {
-		this.Username = Username;
-	}
 
 	public void setWage(Double Wage) {
 		this.Wage = Wage;
@@ -82,10 +73,9 @@ public class JobOffer implements Serializable {
 		print = print + "ID: " +ID +"\n";
 		print = print + "Title: " + Title + "\n";
 		print = print + "Description: " + Description + "\n";
-		print = print + "Creator: " + Username + "\n";
 		print = print + "Wage per hour: " + Wage + "\n";
 		print = print + "Status: " + Status + "\n";
-		print = print + "Job request to: " + tUser + "\n";
+		print = print + "Job request to: " + tUser;
 		return print;
 	}
 }

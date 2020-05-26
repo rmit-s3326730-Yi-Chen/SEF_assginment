@@ -8,17 +8,15 @@ public class Interview implements Serializable{
 	private String Description;
 	private String Venue;
 	private String Time;
-	private String Username;
 	private String Result;
 
 
-	public Interview(String User, String Title, String Description, String Venue, String Time, String Username) {
+	public Interview(String User, String Title, String Description, String Venue, String Time) {
 		this.User = User;
 		this.Title = Title;
 		this.Description = Description;
 		this.Venue = Venue;
 		this.Time = Time;
-		this.Username = Username;
 	}
 
 	public String getUser() {
@@ -61,13 +59,6 @@ public class Interview implements Serializable{
 		return Time;
 	}
 	
-	public String getUsername() {
-		return Username;
-	}
-
-	public void setUsername(String Username) {
-		this.Username = Username;
-	}
 
 	public void setResult(String Result) {
 		this.Result = Result;
@@ -84,8 +75,7 @@ public class Interview implements Serializable{
 		print = print + "Title: " + Title + "\n";
 		print = print + "Description: " + Description + "\n";
 		print = print + "Venue: " + Venue + "\n";
-		print = print + "Time: " + Time + "\n";
-		print = print + "Creator: " + Username + "\n";
+		print = print + "Time: " + Time ;
 		return print;
 	}
 

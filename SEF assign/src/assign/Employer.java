@@ -40,7 +40,7 @@ public class Employer extends SystemUser {
 		for (Interview I : interviews) {
 			for (int i = 0; i < interviews.size(); ++i) {
 				I = interviews.get(i);
-				if (I.getUser().equals(Name) && (I.getUsername().equals(Driver.cUser.getUsername()))) {
+				if (I.getUser().equals(Name) && (getUsername().equals(Driver.cUser.getUsername()))) {
 					User = I.getUser();
 					found = true;
 					break;
@@ -58,9 +58,8 @@ public class Employer extends SystemUser {
 		Description = scan.nextLine();
 		System.out.println("Wage per hour: ");
 		Wage = scan.nextDouble();
-		String Username = Driver.cUser.getUsername();
 		OfferStatus Status = OfferStatus.Pending;
-		JobOffer offer = new JobOffer(Title, Description, Username, Wage, Status, User);
+		JobOffer offer = new JobOffer(Title, Description, Wage, Status, User);
 		offers.add(offer);
 		System.out.println(offer.getJobOffer());
 	}
@@ -177,8 +176,7 @@ public class Employer extends SystemUser {
 		Venue = scan.nextLine();
 		System.out.println("Time: ");
 		Time = scan.nextLine();
-		String Username = Driver.cUser.getUsername();
-		Interview interview = new Interview(User, Title, Description, Venue, Time, Username);
+		Interview interview = new Interview(User, Title, Description, Venue, Time);
 		interviews.add(interview);
 		System.out.println(interview.getInterview());
 	}
