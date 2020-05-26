@@ -212,7 +212,7 @@ public class Driver {
 					((Employer) cUser).setInterview(); // Create interview
 					break;
 				case (4):
-//					((Employer) cUser).interviewResult(); // Interview outcome
+					((Employer) cUser).interviewOutcome(); // Interview outcome
 					break;
 				case (5):
 					try {
@@ -322,8 +322,6 @@ public class Driver {
 		
 	}
 	
-
-
 	private static int employerMenu() {
 		int opt;
 		Scanner scan = new Scanner(System.in);
@@ -335,11 +333,13 @@ public class Driver {
 			System.out.println("4. Update Interview Outcome");
 			System.out.println("5. Complaint");
 			System.out.println("6. Log Out");
-			System.out.println("Please Enter your choice:");
+			System.out.println("Please Enter your choice: ");
 			opt = scan.nextInt();
 		} while (!(opt <= 6));
 		return opt;
 	}
-
-
+	
+	public static ArrayList<User> getUsersArrayList() {
+		return users;
+	}
 }
