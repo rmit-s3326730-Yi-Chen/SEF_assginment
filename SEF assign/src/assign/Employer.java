@@ -8,9 +8,9 @@ import exception.NoApplicantException;
 
 public class Employer extends SystemUser {
 
-	static ArrayList<JobOffer> offers = new ArrayList<JobOffer>();
-	static ArrayList<Interview> interviews = new ArrayList<Interview>();
-	static Scanner scan = new Scanner(System.in);
+	private ArrayList<JobOffer> offers = new ArrayList<JobOffer>();
+	private ArrayList<Interview> interviews = new ArrayList<Interview>();
+	static transient Scanner scan = new Scanner(System.in);
 
 	public Employer(String username, String password, Status status) {
 		super(username, password, status);
@@ -25,7 +25,6 @@ public class Employer extends SystemUser {
 		String Title;
 		String Description;
 		double Wage;
-		Scanner input = new Scanner(System.in);
 		System.out.println("Enter the details of the job");
 		System.out.println("Please enter the applicant username");
 		String Name = scan.next();
@@ -54,11 +53,11 @@ public class Employer extends SystemUser {
 		}
 		
 		System.out.println("Title: ");
-		Title = input.nextLine();
+		Title = scan.nextLine();
 		System.out.println("Description: ");
-		Description = input.nextLine();
+		Description = scan.nextLine();
 		System.out.println("Wage per hour: ");
-		Wage = input.nextDouble();
+		Wage = scan.nextDouble();
 		String Username = Driver.cUser.getUsername();
 		OfferStatus Status = OfferStatus.Pending;
 		JobOffer offer = new JobOffer(Title, Description, Username, Wage, Status, User);
@@ -83,16 +82,15 @@ public class Employer extends SystemUser {
 		int applicantType;
 		int applicantStatus;
 		int count = 0;
-		Scanner input = new Scanner(System.in);
 		do {
 			System.out.println("Search and View Applicants: 1. By Type 2. By Availability");
-			Select = input.nextInt();
+			Select = scan.nextInt();
 		} while (!(Select == 1 || Select == 2));
 
 		if (Select == 1) {
 			do {
 				System.out.println("Enter the appplicant type searching for 0. Local 1. International ");
-				applicantType = input.nextInt();
+				applicantType = scan.nextInt();
 			} while (!(applicantType == 0 || applicantType == 1));
 
 			Type appType;
@@ -149,7 +147,6 @@ public class Employer extends SystemUser {
 		String Description;
 		String Venue;
 		String Time;
-		Scanner input = new Scanner(System.in);
 		System.out.println("Please enter the applicant username for Interview");
 		Name = scan.next();
 		scan.nextLine();
@@ -173,24 +170,24 @@ public class Employer extends SystemUser {
 		}
 		
 		System.out.println("Title: ");
-		Title = input.nextLine();
+		Title = scan.nextLine();
 		System.out.println("Description: ");
-		Description = input.nextLine();
+		Description = scan.nextLine();
 		System.out.println("Venue: ");
-		Venue = input.nextLine();
+		Venue = scan.nextLine();
 		System.out.println("Time: ");
-		Time = input.nextLine();
+		Time = scan.nextLine();
 		String Username = Driver.cUser.getUsername();
 		Interview interview = new Interview(User, Title, Description, Venue, Time, Username);
 		interviews.add(interview);
 		System.out.println(interview.getInterview());
 	}
 	
-	public static ArrayList<JobOffer> getOfferArrayList() {
+	public ArrayList<JobOffer> getOfferArrayList() {
 		return offers;
 	}
 	
-	public static ArrayList<Interview> getInterviewArrayList() {
+	public ArrayList<Interview> getInterviewArrayList() {
 		return interviews;
 	}
 }

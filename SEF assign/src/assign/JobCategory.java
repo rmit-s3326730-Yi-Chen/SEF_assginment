@@ -1,11 +1,12 @@
 package assign;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class JobCategory {
+public class JobCategory implements Serializable {
 	private String jobName;
 	private String jobDescription;
 

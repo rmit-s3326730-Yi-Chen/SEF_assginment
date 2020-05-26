@@ -1,9 +1,14 @@
 package assign;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import exception.*;
 public class Driver {
 	static ArrayList<User> users = new ArrayList<>();
-	
 	static User cUser = null;// current user;
 	static User tUser = null;// target user;
 	static boolean login = false;// determine login/logout
@@ -13,25 +18,37 @@ public class Driver {
 	static User aUser;
 	static Complaint aComplaint;
 
-	public static void main(String[] args)  {
-		aUser = new Applicant("a1","1",Status.Available,Type.Local);
-		users.add(aUser);
-		aUser = new Employer("e1","1",Status.Available);
-		users.add(aUser);
-		aUser = new SystemStaff("s1","1");
-		users.add(aUser);
-		aUser = new Applicant("a2","1",Status.Available,Type.International);
-		users.add(aUser);
-		aUser = new Employer("e2","1",Status.Available);
-		users.add(aUser);
-		aUser = new SystemStaff("s2","1");
-		users.add(aUser);
-		aComplaint = new Complaint(users.get(0),"this employer is not good",users.get(1));
-		SystemUser.getComplaints().add(aComplaint);
-		((SystemUser) users.get(1)).handleNewComplaint();
-		aComplaint = new Complaint(users.get(0),"this employer is bad",users.get(1));
-		SystemUser.getComplaints().add(aComplaint);
-		((SystemUser) users.get(1)).handleNewComplaint();
+	public static void main(String[] args) {
+		// don't delete these hardcoded user1 we may still need them.
+//		aUser = new Applicant("a1","1",Status.Available,Type.Local);
+//		users.add(aUser);
+//		aUser = new Employer("e1","1",Status.Available);
+//		users.add(aUser);
+//		aUser = new SystemStaff("s1","1");
+//		users.add(aUser);
+//		aUser = new Applicant("a2","1",Status.Available,Type.International);
+//		users.add(aUser);
+//		aUser = new Employer("e2","1",Status.Available);
+//		users.add(aUser);
+//		aUser = new SystemStaff("s2","1");
+//		users.add(aUser);
+//		aComplaint = new Complaint(users.get(0),"this employer is not good",users.get(1));
+//		((SystemUser) users.get(0)).getComplaints().add(aComplaint);
+//		((SystemUser) users.get(1)).handleNewComplaint();
+//		aComplaint = new Complaint(users.get(0),"this employer is bad",users.get(1));
+//		((SystemUser) users.get(0)).getComplaints().add(aComplaint);
+//		((SystemUser) users.get(1)).handleNewComplaint();
+		try {
+			load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		
 		do {
 			System.out.println(" **Student Casual Employment System** ");
@@ -57,6 +74,12 @@ public class Driver {
 	    		break;
 	    	case("4"):
 	    		System.out.println("Thank your for using Student Casual Employment System");
+		    	try {
+					save();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	    		quit = true;
 	    		break;
 	    	default:
@@ -65,7 +88,18 @@ public class Driver {
 		}while(!quit);
 			
 	}
-
+	public static void save() throws FileNotFoundException, IOException{
+		ObjectOutputStream out = new ObjectOutputStream
+				(new FileOutputStream("users.dat"));
+				out.writeObject(users);
+				out.close();
+	}
+	public static void load() throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream in = new ObjectInputStream
+				(new FileInputStream("users.dat"));
+				users = (ArrayList<User>) in.readObject();
+				in.close();
+	}
 	public static void login() {
 		System.out.println("Please enter your username: ");
 		String username = scan.next();
@@ -282,7 +316,7 @@ public class Driver {
 		System.out.println("Please enter complaint description");
 		String description = scan.nextLine();
 		aComplaint = new Complaint(cUser,description,tUser);
-		SystemUser.getComplaints().add(aComplaint);
+		((SystemUser) cUser).getComplaints().add(aComplaint);
 		System.out.println("you have created the complaint");
 		((SystemUser) tUser).handleNewComplaint();
 		

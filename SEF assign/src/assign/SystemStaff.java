@@ -2,7 +2,7 @@ package assign;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class SystemStaff extends User{
-	Scanner scan = new Scanner(System.in);
+	transient static Scanner scan = new Scanner(System.in);
 	
 	
 	public SystemStaff(String username, String password) {
@@ -58,7 +58,7 @@ public class SystemStaff extends User{
 			return;
 		}
 		System.out.println("enter 1 for blacklist the user.");
-		System.out.println("enter 1 for make the user available again.");
+		System.out.println("enter 2 for make the user available again.");
 		String input = scan.next();
 		scan.nextLine();
 		switch(input){

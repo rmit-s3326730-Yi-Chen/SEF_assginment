@@ -1,7 +1,8 @@
 package assign;
 
+import java.io.Serializable;
 
-public class Complaint {
+public class Complaint implements Serializable{
 		private String description;
 		private User creater;
 		private User target;

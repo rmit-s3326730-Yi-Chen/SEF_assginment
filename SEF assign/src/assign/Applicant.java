@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Applicant extends SystemUser{
 	private Type type;
-	Scanner scan = new Scanner(System.in);
+	transient static Scanner scan = new Scanner(System.in);
 	public String applicantEmail;
 	private Status status;
 	private String companyName;
@@ -1027,20 +1027,32 @@ public class Applicant extends SystemUser{
 		}
 
 		public void viewInterview() {
-			for (Interview o : Employer.interviews) {
-				if (o.getUser().equals(this.getUsername())) {
-					System.out.println(o.getInterview());
+			for(User u:Driver.users) {
+				if(u instanceof Employer) {
+					for (Interview o : ((Employer) u).getInterviewArrayList()) {
+						if (o.getUser().equals(this.getUsername())) {
+							System.out.println(o.getInterview());
+						}
+					}
+					
 				}
 			}
+			
 			
 		}
 
 		public void viewOffer() {
-			for (JobOffer o : Employer.offers) {
-				if (o.getUser().equals(this.getUsername())) {
-					System.out.println(o.getJobOffer());
+			for(User u:Driver.users) {
+				if(u instanceof Employer) {
+					for (JobOffer o : ((Employer) u).getOfferArrayList()) {
+						if (o.getUser().equals(this.getUsername())) {
+							System.out.println(o.getJobOffer());
+						}
+					}
 				}
+				
 			}
+			
 			
 		}
 
@@ -1049,31 +1061,37 @@ public class Applicant extends SystemUser{
 			System.out.println("Please enter the offer ID you want to manage");
 			String ID = scan.next();
 			scan.nextLine();
-			for(JobOffer o:Employer.getOfferArrayList()) {
-				if(o.getID().equals(ID)) {
-					if(o.getStatus()==OfferStatus.Pending) {
-						System.out.println("Please enter 1 for accept, 2 for deny");
-						String input = scan.next();
-						scan.nextLine();
-						switch(input) {
-						case("1"):
-							o.setStatus(OfferStatus.Accepted);
-							break;
-						case("2"):
-							o.setStatus(OfferStatus.Denied);
-							break;
-						default:
-							System.out.println("Sorry, Wrong input");
+			for(User u:Driver.users) {
+				if(u instanceof Employer) {
+					for(JobOffer o:((Employer) u).getOfferArrayList()) {
+						if(o.getID().equals(ID)) {
+							if(o.getStatus()==OfferStatus.Pending) {
+								System.out.println("Please enter 1 for accept, 2 for deny");
+								String input = scan.next();
+								scan.nextLine();
+								switch(input) {
+								case("1"):
+									o.setStatus(OfferStatus.Accepted);
+									break;
+								case("2"):
+									o.setStatus(OfferStatus.Denied);
+									break;
+								default:
+									System.out.println("Sorry, Wrong input");
+								}
+								return;
+								
+							}
+							else {
+								System.out.println("not pending offer need to be managed");
+								return;
+							}
 						}
-						return;
-						
-					}
-					else {
-						System.out.println("not pending offer need to be managed");
-						return;
 					}
 				}
+				
 			}
+			
 			System.out.println("Sorry, no matched offer");
 			
 		}

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SystemUser extends User{
 	private Status status;
 	private int complaintCount;
-	private static ArrayList<Complaint>complaints = new ArrayList<>();
+	private ArrayList<Complaint>complaints = new ArrayList<>();
 	
 	
 	public SystemUser(String username, String password, Status status ) {
@@ -21,7 +21,7 @@ public class SystemUser extends User{
 	public Status getStatus() {
 		return status;
 	}
-	public static ArrayList<Complaint> getComplaints() {
+	public ArrayList<Complaint> getComplaints() {
 		return complaints;
 	}
 	

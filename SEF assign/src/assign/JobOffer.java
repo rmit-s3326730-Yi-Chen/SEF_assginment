@@ -1,7 +1,8 @@
 package assign;
 
+import java.io.Serializable;
 
-public class JobOffer {
+public class JobOffer implements Serializable {
 	private String Title;
 	private String Username;
 	private String Description;
