@@ -307,12 +307,5 @@ public class Driver {
 		return opt;
 	}
 
-	public static ArrayList<User> getUsersArrayList() {
-		return users;
-	}
-	
-	public static String getcUser() {
-		String emp= cUser.getUsername();
-		return emp;
-	}
+
 }

@@ -7,8 +7,7 @@ import exception.MultipleOfferException;
 import exception.NoApplicantException;
 
 public class Employer extends SystemUser {
-	
-	static ArrayList<User> users = Driver.getUsersArrayList();
+
 	static ArrayList<JobOffer> offers = new ArrayList<JobOffer>();
 	static ArrayList<Interview> interviews = new ArrayList<Interview>();
 	static Scanner scan = new Scanner(System.in);
@@ -42,7 +41,7 @@ public class Employer extends SystemUser {
 		for (Interview I : interviews) {
 			for (int i = 0; i < interviews.size(); ++i) {
 				I = interviews.get(i);
-				if (I.getUser().equals(Name) && (I.getUsername().equals(Driver.getcUser()))) {
+				if (I.getUser().equals(Name) && (I.getUsername().equals(Driver.cUser.getUsername()))) {
 					User = I.getUser();
 					found = true;
 					break;
@@ -60,7 +59,7 @@ public class Employer extends SystemUser {
 		Description = input.nextLine();
 		System.out.println("Wage per hour: ");
 		Wage = input.nextDouble();
-		String Username = Driver.getcUser();
+		String Username = Driver.cUser.getUsername();
 		OfferStatus Status = OfferStatus.Pending;
 		JobOffer offer = new JobOffer(Title, Description, Username, Wage, Status, User);
 		offers.add(offer);
@@ -103,8 +102,8 @@ public class Employer extends SystemUser {
 				appType = Type.International;
 			}
 
-			for (int i = 0; i < users.size(); ++i) {
-				User user = users.get(i);
+			for (int i = 0; i < Driver.users.size(); ++i) {
+				User user = Driver.users.get(i);
 				if (user instanceof Applicant) {
 					Type app = ((Applicant) user).getType();
 					if (app.equals(appType)) {
@@ -115,8 +114,8 @@ public class Employer extends SystemUser {
 			}
 		} else {
 			System.out.println("Searching and viewing the applicants with status 'AVAILABLE'");
-			for (int i = 0; i < users.size(); ++i) {
-				User user = users.get(i);
+			for (int i = 0; i < Driver.users.size(); ++i) {
+				User user = Driver.users.get(i);
 				if (user instanceof Applicant) {
 					Status stat = ((SystemUser) user).getStatus();
 					if (stat.equals(Status.Available)) {
@@ -156,9 +155,9 @@ public class Employer extends SystemUser {
 		scan.nextLine();
 		String User = null;
 		boolean found = false;
-		for (User u : users) {
-			for (int i = 0; i < users.size(); ++i) {
-				u = users.get(i);
+		for (User u : Driver.users) {
+			for (int i = 0; i < Driver.users.size(); ++i) {
+				u = Driver.users.get(i);
 				if (u instanceof Applicant) {
 					if (u.getUsername().equals(Name)) {
 						User = u.getUsername();
@@ -181,7 +180,7 @@ public class Employer extends SystemUser {
 		Venue = input.nextLine();
 		System.out.println("Time: ");
 		Time = input.nextLine();
-		String Username = Driver.getcUser();
+		String Username = Driver.cUser.getUsername();
 		Interview interview = new Interview(User, Title, Description, Venue, Time, Username);
 		interviews.add(interview);
 		System.out.println(interview.getInterview());
