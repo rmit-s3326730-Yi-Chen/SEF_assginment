@@ -70,7 +70,8 @@ public class JobOffer implements Serializable {
 
 	public String getJobOffer() {
 		String print = "\n";
-		print = print + "ID: " +ID +"\n";
+		print = "The Offer Details are \n";
+		print = print + "Job ID: " + ID + "\n";
 		print = print + "Title: " + Title + "\n";
 		print = print + "Description: " + Description + "\n";
 		print = print + "Wage per hour: " + Wage + "\n";
