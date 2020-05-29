@@ -56,8 +56,8 @@ public class Employer extends SystemUser {
 		
 		for (Interview I : interviews) {
 			if (I.getUser().equals(User)) {
-				Title = Interview.getTitle();
-				Description = Interview.getDescription();
+				Title = I.getTitle();
+				Description = I.getDescription();
 			}
 		}
 
@@ -68,7 +68,7 @@ public class Employer extends SystemUser {
 		
 		String Username = this.getUsername();
 		OfferStatus Status = null;
-		JobOffer offer = new JobOffer(Title, Description, Username, Wage, Status, User);
+		JobOffer offer = new JobOffer(Title, Description, Wage, Status, User);
 		offers.add(offer);
 		System.out.println(offer.getJobOffer());
 	}
@@ -341,11 +341,11 @@ public class Employer extends SystemUser {
 		}
 	}
 
-	public static ArrayList<JobOffer> getOfferArrayList() {
+	public  ArrayList<JobOffer> getOfferArrayList() {
 		return offers;
 	}
 
-	public static ArrayList<Interview> getInterviewArrayList() {
+	public  ArrayList<Interview> getInterviewArrayList() {
 		return interviews;
 	}
 }
