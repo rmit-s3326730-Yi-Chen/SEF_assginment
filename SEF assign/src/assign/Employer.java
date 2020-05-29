@@ -44,9 +44,21 @@ public class Employer extends SystemUser {
 		String User = null;
 		for (Interview I : interviews) {
 			if (I.getUser().equals(Name) && (I.getUsername().equals(this.getUsername()))) {
-				User = I.getUser();
-				found = true;
-				break;
+				if (I.getResult() == Outcome.Success) {
+					User = I.getUser();
+					found = true;
+					break;
+				} else if (I.getResult() == Outcome.Fail) {
+					System.out.println("The candidate is unsuccessful in the interview");
+					return;
+				} else if (I.getResult() == Outcome.Noappearance) {
+					System.out.println("The candidate didn't attend the interview");
+					return;
+				} else {
+					System.out.println("The interview is still not completed");
+					return;
+				}
+				
 			}
 		}
 		if (!found) {
@@ -206,12 +218,22 @@ public class Employer extends SystemUser {
 
 		DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		Date = LocalDate.parse(dateLine, dt);
+		LocalDate date2 = java.time.LocalDate.now();
+		
+		if (Date.compareTo(date2) == 0) {
+			do {
+				System.out.println("Time 24HRS (HH:mm): ");
+				timeLine = scan.nextLine();
+			} while (!validSameDateTime(timeLine));
+		}
 
-		do {
-			System.out.println("Time 24HRS (HH:mm): ");
-			timeLine = scan.nextLine();
-		} while (!validateTime(timeLine));
-
+		else {
+			do {
+				System.out.println("Time 24HRS (HH:mm): ");
+				timeLine = scan.nextLine();
+			} while (!validateTime(timeLine));	
+		}
+		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 		Time = LocalTime.parse(timeLine, dtf);
 
@@ -280,6 +302,22 @@ public class Employer extends SystemUser {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
 			try {
 				LocalTime time1 = LocalTime.parse(time, dtf);
+				return true;
+			} catch (DateTimeParseException e) {
+				System.out.println(time + " invalid time format please try again");
+				return false;
+			}
+		}
+	}
+
+	private boolean validSameDateTime(String time) {
+		if (time.trim().equals("")) {
+			System.out.println("Please enter a time for the interview");
+			return false;
+		} else {
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+			try {
+				LocalTime time1 = LocalTime.parse(time, dtf);
 				LocalTime time2 = java.time.LocalTime.now();
 				if (time1.compareTo(time2) > 0) {
 					return true;
@@ -293,7 +331,7 @@ public class Employer extends SystemUser {
 			}
 		}
 	}
-
+	
 	public void interviewOutcome() {
 		System.out.println("Please enter the applicant username you wish to update the results for ");
 		String Name = scan.next();
@@ -302,35 +340,84 @@ public class Employer extends SystemUser {
 		String User = null;
 		for (Interview I : interviews) {
 			if (I.getUser().equals(Name) && (I.getUsername().equals(this.getUsername()))) {
-				User = I.getUser();
 
-				LocalDate date1 = I.getDate();
-				LocalDate date2 = java.time.LocalDate.now();
-				
-				LocalTime time1 = I.getTime();
-				LocalTime time2 = java.time.LocalTime.now();
-				
-				if ((date2.compareTo(date1) >= 0) && (time1.compareTo(time2) > 0)) {
-					System.out.println("The interview outcomes of the applicant " + User);
-					int option;
-					do {
-						System.out.println("Choose one of the option: ");
-						System.out.println("1. Success 2. Fail 3. No Appearance ");
-						option = scan.nextInt();
-						if (option == 1) {
-							I.setResult(Outcome.Success);
-						}
-						if (option == 2) {
-							I.setResult(Outcome.Fail);
-						}
-						if (option == 3) {
-							I.setResult(Outcome.Noappearance);
-						}
-					} while (!(option == 1 || option == 2 || option == 3));
-					System.out.println(I.getInterview() + "\n" + I.getResult());
-				} else {
-					System.out.println("You can't update as there is still some time for the Interview ");
+				if (I.getResult() == Outcome.Called) {
+					User = I.getUser();
+
+					LocalDate date1 = I.getDate();
+					LocalDate date2 = java.time.LocalDate.now();
+
+					LocalTime time1 = I.getTime();
+					LocalTime time2 = java.time.LocalTime.now();
+
+					if ((date2.compareTo(date1) >= 0) && (time2.compareTo(time1) > 0)) {
+						System.out.println("The interview outcomes of the applicant " + User);
+						int option;
+						do {
+							System.out.println("Choose one of the option: ");
+							System.out.println("1. Success 2. Fail 3. No Appearance ");
+							option = scan.nextInt();
+							if (option == 1) {
+								I.setResult(Outcome.Success);
+							}
+							if (option == 2) {
+								I.setResult(Outcome.Fail);
+							}
+							if (option == 3) {
+								I.setResult(Outcome.Noappearance);
+							}
+						} while (!(option == 1 || option == 2 || option == 3));
+						System.out.println(I.getInterview() + "\n" + I.getResult());
+					} else {
+						System.out.println("You can't update as there is still some time for the Interview ");
+						return;
+					}
 				}
+
+				else {
+
+					boolean back = false;
+					while (!back) {
+						try {
+							System.out.println("The status is already updated for " + I.getUser());
+							System.out.println(I.getResult() + "\n");
+							for (int i = 0; i < offers.size(); ++i) {
+								JobOffer J = offers.get(i);
+								if (J.getUser().equals(Name) && J.getStatus() == OfferStatus.Pending) {
+									System.out.println(
+											"The candidate is already offered the job you can no longer update the outcome ");
+									return;
+								} else {
+
+									System.out.println("Do you want to update the outcome of the interview: ");
+									System.out.println("1. Update to Success\n" + "2. Update to Fail\n"
+											+ "3. Update to Noappearance\n" + "4. Go back");
+									int response = scan.nextInt();
+									scan.nextLine();
+									switch (response) {
+									case (1):
+										I.setResult(Outcome.Success);
+										break;
+									case (2):
+										I.setResult(Outcome.Fail);
+										break;
+									case (3):
+										I.setResult(Outcome.Noappearance);
+										break;
+									case (4):
+										back = true;
+										break;
+									}
+								}
+							}
+						} catch (InputMismatchException e) {
+							System.out.println("Please enter a valid input");
+						}
+
+					}
+					System.out.println(I.getInterview() + "\n" + I.getResult());
+				}
+
 				found = true;
 				break;
 			}
