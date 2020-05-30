@@ -335,6 +335,7 @@ public class Driver {
 			System.out.println("6. Log Out");
 			System.out.println("Please Enter your choice: ");
 			opt = scan.nextInt();
+			scan.nextLine();
 		} while (!(opt <= 6));
 		return opt;
 	}

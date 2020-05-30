@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import assign.Interview.Outcome;
 import exception.MultipleOfferException;
@@ -12,7 +13,7 @@ import exception.NoApplicantException;
 
 public class Employer extends SystemUser {
 
-	static ArrayList<User> users = Driver.getUsersArrayList();
+	public ArrayList<User> users = Driver.getUsersArrayList();
 	private ArrayList<JobOffer> offers = new ArrayList<JobOffer>();
 	private ArrayList<Interview> interviews = new ArrayList<Interview>();
 	static transient Scanner scan = new Scanner(System.in);
@@ -124,7 +125,7 @@ public class Employer extends SystemUser {
 				User user = users.get(i);
 				if (user instanceof Applicant) {
 					Type app = ((Applicant) user).getType();
-					if (app.equals(appType)) {
+					if (app==(appType)) {
 						System.out.println(user.getDetails());
 						count++;
 					}

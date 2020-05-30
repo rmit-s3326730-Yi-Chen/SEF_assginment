@@ -1032,7 +1032,7 @@ public class Applicant extends SystemUser{
 					for (Interview o : ((Employer) u).getInterviewArrayList()) {
 						if (o.getUser().equals(this.getUsername())) {
 							System.out.println(o.getInterview());
-							System.out.println("Creater: " +u.getUsername());
+							
 						}
 					}
 					
@@ -1048,7 +1048,7 @@ public class Applicant extends SystemUser{
 					for (JobOffer o : ((Employer) u).getOfferArrayList()) {
 						if (o.getUser().equals(this.getUsername())) {
 							System.out.println(o.getJobOffer());
-							System.out.println("Creater: " +u.getUsername());
+							
 						}
 					}
 				}
